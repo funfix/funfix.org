@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="462"
+   height="462"
+   viewBox="0 0 462.00001 462"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="funfix.svg"
+   inkscape:export-filename="/Users/alex/Projects/personal/funfix.org/public/logo/funfix-512.png"
+   inkscape:export-xdpi="99.740257"
+   inkscape:export-ydpi="99.740257"
+   style="enable-background:new">
+  <metadata
+     id="metadata35">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Monix - Blue</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#e0e0e0"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1436"
+     inkscape:window-height="855"
+     id="namedview33"
+     showgrid="false"
+     inkscape:snap-others="false"
+     inkscape:zoom="1.4142135"
+     inkscape:cx="189.95552"
+     inkscape:cy="252.34592"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g7298"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <sodipodi:guide
+       position="-250.20984,621.82446"
+       orientation="1,0"
+       id="guide6826" />
+    <sodipodi:guide
+       position="85.67263,345.00562"
+       orientation="0,1"
+       id="guide4191" />
+    <sodipodi:guide
+       position="69.40917,345.00562"
+       orientation="1,0"
+       id="guide4193" />
+    <sodipodi:guide
+       position="329.62448,500.56912"
+       orientation="1,0"
+       id="guide4195" />
+  </sodipodi:namedview>
+  <!-- Generator: Sketch 40.2 (33826) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4">Monix - Blue</title>
+  <desc
+     id="desc6">Created with Sketch.</desc>
+  <defs
+     id="defs8">
+    <linearGradient
+       x1="1"
+       y1="0"
+       x2="0"
+       y2="1"
+       id="linearGradient-1">
+      <stop
+         stop-color="#FFFFFF"
+         stop-opacity="0.5"
+         offset="0%"
+         id="stop11" />
+      <stop
+         stop-color="#000000"
+         stop-opacity="0.5"
+         offset="100%"
+         id="stop13" />
+    </linearGradient>
+    <polygon
+       id="path-2"
+       points="5.0882072,18.615868 39.874811,18.615868 36.339549,22.582279 2.1384523,25.835594 " />
+    <polygon
+       id="path-3"
+       points="24.875441,18.615868 59.662045,18.615868 56.126784,22.582279 21.925686,25.835594 " />
+    <polygon
+       points="36.339549,22.582279 2.1384523,25.835594 5.0882072,18.615868 39.874811,18.615868 "
+       id="path-2-2" />
+    <polygon
+       points="56.126784,22.582279 21.925686,25.835594 24.875441,18.615868 59.662045,18.615868 "
+       id="path-3-4" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Drawing"
+     style="display:inline;opacity:1"
+     transform="translate(-51.549098,487.23064)">
+    <g
+       id="g7298">
+      <g
+         transform="matrix(0.8185608,0,0,0.8185608,7.560969,-69.282847)"
+         style="display:inline"
+         inkscape:label="Shadow2"
+         id="layer5-7" />
+      <g
+         id="g7056"
+         inkscape:label="Shadow2"
+         style="display:inline"
+         transform="matrix(0.8185608,0,0,0.8185608,7.560969,-69.282847)" />
+      <g
+         id="g4219"
+         transform="translate(31,-0.0625)">
+        <path
+           inkscape:connector-curvature="0"
+           id="path6822"
+           transform="translate(20.549098,-487.16814)"
+           d="m 231.00391,0.0625 -109.76953,63.373047 0,-0.0039 -77.462896,44.722663 0,0.002 L 31.003906,115.5274 31,346.46484 230.99609,461.9375 l 114.45899,-66.08008 0,0.004 73.70508,-42.55078 0,-0.004 11.83593,-6.83398 L 431,115.53516 231.00391,0.0625 Z"
+           style="opacity:1;fill:#800000;fill-opacity:1;stroke:none;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.95686275" />
+        <path
+           inkscape:connector-curvature="0"
+           id="text4157"
+           transform="translate(20.549098,-487.16814)"
+           d="m 185.30664,65.945312 c -18.24739,10e-7 -32.89303,5.660082 -43.9375,16.978516 -10.94843,11.207469 -18.43902,28.240812 -22.47266,51.099612 l -7.05859,41.94336 -38.320312,0 -6.769531,39.61523 38.318363,0 -16.853519,98.03711 c -2.689089,15.97897 -6.436338,27.07502 -11.238282,33.28906 -4.705904,6.21405 -11.379939,9.32227 -20.023437,9.32227 -3.361361,0 -6.817656,-0.61142 -10.371094,-1.83203 -2.248325,-0.7021 -4.562114,-1.70038 -6.925781,-2.93555 l 63.099613,36.42969 c 4.16396,-2.44538 7.96199,-5.45156 11.38867,-9.02539 10.94843,-11.20747 18.43902,-28.29586 22.47265,-51.26563 l 19.44922,-112.01953 44.51367,0 6.62696,-39.61523 -44.3711,0 4.75391,-27.96289 c 2.59305,-15.64607 6.29181,-26.63204 11.09375,-32.95703 4.80194,-6.43599 11.52447,-9.65235 20.16797,-9.65235 3.64948,0 7.10577,0.55441 10.37109,1.66406 3.26532,1.10965 6.8186,2.94 10.66016,5.49219 l 7.05859,-40.61328 c -7.29895,-1.997371 -14.40551,-3.495455 -21.32031,-4.494141 -6.9148,-0.998685 -13.68582,-1.498046 -20.3125,-1.498047 z"
+           style="font-style:normal;font-weight:normal;font-size:317.12475586px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path
+           transform="translate(20.549098,-487.16814)"
+           inkscape:connector-curvature="0"
+           id="text4178"
+           d="m 339.22656,123.66211 c -13.80338,0 -24.88361,4.27988 -33.23828,12.8418 -8.28203,8.47798 -13.94679,21.36451 -16.99805,38.65625 l -5.34179,31.72851 -28.98633,0 -5.12305,29.96875 28.98828,0 -12.75,74.16016 c -2.03418,12.08742 -4.86752,20.48097 -8.5,25.18164 -3.55982,4.70065 -8.60805,7.05078 -15.14648,7.05078 -2.54274,0 -5.15963,-0.46144 -7.84766,-1.38477 -2.68801,-0.83941 -5.48464,-2.1826 -8.39062,-4.02929 l -5.23047,31.47851 c 4.57691,1.34307 9.44541,2.30695 14.60351,2.89453 5.23076,0.67153 10.93223,1.00782 17.10743,1.00782 13.80337,0 24.81015,-4.28181 33.01953,-12.84375 8.28204,-8.47799 13.94872,-21.40365 17,-38.7793 l 14.71094,-84.73633 33.67382,0 5.01172,-29.96875 -33.5625,0 3.59571,-21.15234 c 1.96154,-11.83559 4.75814,-20.14509 8.39062,-24.92969 3.63246,-4.86855 8.71742,-7.30469 15.25586,-7.30469 2.76068,0 5.37759,0.42037 7.84766,1.25977 2.47009,0.83939 5.15849,2.22561 8.06445,4.15625 l 5.33789,-30.72266 c -5.52136,-1.51092 -10.89619,-2.64297 -16.12695,-3.39843 -5.23076,-0.75548 -10.35245,-1.13477 -15.36524,-1.13477 z"
+           style="font-style:normal;font-weight:normal;font-size:317.12475586px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      </g>
+    </g>
+  </g>
+</svg>
