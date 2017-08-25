@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TimeoutError | funfix-core</title>
+	<title>ExecutionModel | funfix-exec</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -879,7 +879,7 @@ img { max-width: 100%; }
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="../index.html">funfix-core</a></strong>
+					<strong><a href="../index.html">funfix-exec</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -910,99 +910,117 @@ img { max-width: 100%; }
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-class">
-			<a href="compositeerror.html" class="tsd-kind-icon">Composite<wbr>Error</a>
+			<a href="assigncancelable.html" class="tsd-kind-icon">Assign<wbr>Cancelable</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="dummyerror.html" class="tsd-kind-icon">Dummy<wbr>Error</a>
+			<a href="boolcancelable.html" class="tsd-kind-icon">Bool<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="cancelable.html" class="tsd-kind-icon">Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="duration.html" class="tsd-kind-icon">Duration</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="either.html" class="tsd-kind-icon">Either</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="illegalargumenterror.html" class="tsd-kind-icon">Illegal<wbr>Argument<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="illegalinheritanceerror.html" class="tsd-kind-icon">Illegal<wbr>Inheritance<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="illegalstateerror.html" class="tsd-kind-icon">Illegal<wbr>State<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="nosuchelementerror.html" class="tsd-kind-icon">No<wbr>Such<wbr>Element<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="notimplementederror.html" class="tsd-kind-icon">Not<wbr>Implemented<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="option.html" class="tsd-kind-icon">Option</a>
+			<a href="dynamicref.html" class="tsd-kind-icon">Dynamic<wbr>Ref</a>
 		</li>
 		<li class="current tsd-kind-class">
-			<a href="timeouterror.html" class="tsd-kind-icon">Timeout<wbr>Error</a>
+			<a href="executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
-					<a href="timeouterror.html#constructor" class="tsd-kind-icon">constructor</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="executionmodel.html#recommendedbatchsize" class="tsd-kind-icon">recommended<wbr>Batch<wbr>Size</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="executionmodel.html#type" class="tsd-kind-icon">type</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a href="timeouterror.html#error" class="tsd-kind-icon">Error</a>
+					<a href="executionmodel.html#global" class="tsd-kind-icon">global</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a href="timeouterror.html#message" class="tsd-kind-icon">message</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="executionmodel.html#equals" class="tsd-kind-icon">equals</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a href="timeouterror.html#name" class="tsd-kind-icon">name</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="executionmodel.html#hashcode" class="tsd-kind-icon">hash<wbr>Code</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
-					<a href="timeouterror.html#stack" class="tsd-kind-icon">stack</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="executionmodel.html#alwaysasync" class="tsd-kind-icon">always<wbr>Async</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="executionmodel.html#batched" class="tsd-kind-icon">batched</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="executionmodel.html#synchronous" class="tsd-kind-icon">synchronous</a>
 				</li>
 			</ul>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="try.html" class="tsd-kind-icon">Try</a>
+			<a href="future.html" class="tsd-kind-icon">Future</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="globalscheduler.html" class="tsd-kind-icon">Global<wbr>Scheduler</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="multiassigncancelable.html" class="tsd-kind-icon">Multi<wbr>Assign<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="scheduler.html" class="tsd-kind-icon">Scheduler</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="serialcancelable.html" class="tsd-kind-icon">Serial<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="singleassigncancelable.html" class="tsd-kind-icon">Single<wbr>Assign<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="testscheduler.html" class="tsd-kind-icon">Test<wbr>Scheduler</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/iassigncancelable.html" class="tsd-kind-icon">IAssign<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/iboolcancelable.html" class="tsd-kind-icon">IBool<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/icancelable.html" class="tsd-kind-icon">ICancelable</a>
 		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
-			<a href="../interfaces/iequals.html" class="tsd-kind-icon">IEquals</a>
-		</li>
-		<li class=" tsd-kind-type-alias">
-			<a href="../globals.html#throwable" class="tsd-kind-icon">Throwable</a>
+			<a href="../interfaces/ipromiselike.html" class="tsd-kind-icon">IPromise<wbr>Like</a>
 		</li>
 		<li class=" tsd-kind-variable">
-			<a href="../globals.html#none" class="tsd-kind-icon">None</a>
+			<a href="../globals.html#days" class="tsd-kind-icon">DAYS</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#hours" class="tsd-kind-icon">HOURS</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#microseconds" class="tsd-kind-icon">MICROSECONDS</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#milliseconds" class="tsd-kind-icon">MILLISECONDS</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#minutes" class="tsd-kind-icon">MINUTES</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#nanoseconds" class="tsd-kind-icon">NANOSECONDS</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#seconds" class="tsd-kind-icon">SECONDS</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#lnof2" class="tsd-kind-icon">ln<wbr>Of2</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#maxpowerof2" class="tsd-kind-icon">max<wbr>Power<wbr>Of2</a>
 		</li>
 		<li class=" tsd-kind-function">
-			<a href="../globals.html#failure" class="tsd-kind-icon">Failure</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="../globals.html#left" class="tsd-kind-icon">Left</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="../globals.html#right" class="tsd-kind-icon">Right</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="../globals.html#some" class="tsd-kind-icon">Some</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="../globals.html#success" class="tsd-kind-icon">Success</a>
+			<a href="../globals.html#log2" class="tsd-kind-icon">log2</a>
 		</li>
 		<li class=" tsd-kind-function">
-			<a href="../globals.html#applymixins" class="tsd-kind-icon">apply<wbr>Mixins</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="../globals.html#equals" class="tsd-kind-icon">equals</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="../globals.html#hashcode" class="tsd-kind-icon">hash<wbr>Code</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="../globals.html#hashcodeofstring" class="tsd-kind-icon">hash<wbr>Code<wbr>OfString</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="../globals.html#id" class="tsd-kind-icon">id</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="../globals.html#is" class="tsd-kind-icon">is</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="../globals.html#isvalueobject" class="tsd-kind-icon">is<wbr>Value<wbr>Object</a>
+			<a href="../globals.html#nextpowerof2" class="tsd-kind-icon">next<wbr>Power<wbr>Of2</a>
 		</li>
 	</ul>
 </nav>
@@ -1011,21 +1029,32 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Signals that completion of a procedure took longer than anticipated.</p>
+					<p>The <code>ExecutionModel</code> is a specification for how potentially asynchronous
+					run-loops should execute, imposed by the <code>Scheduler</code>.</p>
 				</div>
+				<p>When executing tasks, a run-loop can always execute tasks
+					asynchronously (by forking logical threads), or it can always
+					execute them synchronously (same thread and call-stack, by
+					using an internal trampoline), or it can do a mixed mode
+				that executes tasks in batches before forking.</p>
+				<p>The specification is considered a recommendation for how
+					run loops should behave, but ultimately it&#39;s up to the client
+					to choose the best execution model. This can be related to
+				recursive loops or to events pushed into consumers.</p>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="tsd-signature-type">Error</span>
-					<ul class="tsd-hierarchy">
-						<li>
-							<span class="target">TimeoutError</span>
-						</li>
-					</ul>
+					<span class="target">ExecutionModel</span>
 				</li>
+			</ul>
+		</section>
+		<section class="tsd-panel">
+			<h3>Implements</h3>
+			<ul class="tsd-hierarchy">
+				<li><span class="tsd-signature-type">IEquals</span><span class="tsd-signature-symbol">&lt;</span><a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a><span class="tsd-signature-symbol">&gt;</span></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -1033,94 +1062,228 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Constructors</h3>
+						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="timeouterror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="executionmodel.html#recommendedbatchsize" class="tsd-kind-icon">recommended<wbr>Batch<wbr>Size</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="executionmodel.html#type" class="tsd-kind-icon">type</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="executionmodel.html#global" class="tsd-kind-icon">global</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
-						<h3>Properties</h3>
+						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="timeouterror.html#error" class="tsd-kind-icon">Error</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="timeouterror.html#message" class="tsd-kind-icon">message</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="timeouterror.html#name" class="tsd-kind-icon">name</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static"><a href="timeouterror.html#stack" class="tsd-kind-icon">stack</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="executionmodel.html#equals" class="tsd-kind-icon">equals</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="executionmodel.html#hashcode" class="tsd-kind-icon">hash<wbr>Code</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="executionmodel.html#alwaysasync" class="tsd-kind-icon">always<wbr>Async</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="executionmodel.html#batched" class="tsd-kind-icon">batched</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="executionmodel.html#synchronous" class="tsd-kind-icon">synchronous</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-				<a name="constructor" class="tsd-anchor"></a>
-				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Timeout<wbr>Error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="timeouterror.html" class="tsd-signature-type">TimeoutError</a></li>
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="recommendedbatchsize" class="tsd-anchor"></a>
+				<h3>recommended<wbr>Batch<wbr>Size</h3>
+				<div class="tsd-signature tsd-kind-icon">recommended<wbr>Batch<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L332">scheduler.ts:332</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Recommended batch size used for breaking synchronous loops in
+							asynchronous batches. When streaming value from a producer to
+							a synchronous consumer it&#39;s recommended to break the streaming
+							in batches as to not hold the current thread or run-loop
+						indefinitely.</p>
+					</div>
+					<p>This is rounded to the next power of 2, because then for
+					applying the modulo operation we can just do:</p>
+					<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> modulus = recommendedBatchSize - <span class="hljs-number">1</span>
+<span class="hljs-comment">// ...</span>
+nr = (nr + <span class="hljs-number">1</span>) &amp; modulus
+</code></pre>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="type" class="tsd-anchor"></a>
+				<h3>type</h3>
+				<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"batched"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"synchronous"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"alwaysAsync"</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L349">scheduler.ts:349</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The type of the execution model, which can be:</p>
+					</div>
+					<ul>
+						<li><code>batched</code>: the default, specifying an mixed execution
+							mode under which tasks are executed synchronously in
+							batches up to a maximum size; after a batch of
+							<a href="executionmodel.html#recommendedbatchsize">recommendedBatchSize</a> is executed, the next
+						execution should be asynchronous.</li>
+						<li><code>synchronous</code>: specifies that execution should be
+							synchronous (immediate / trampolined) for as long as
+						possible.</li>
+						<li><code>alwaysAsync</code>: specifies a run-loop should always do
+							async execution of tasks, triggering asynchronous
+						boundaries on each step.</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+				<a name="global" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> global</h3>
+				<div class="tsd-signature tsd-kind-icon">global<span class="tsd-signature-symbol">:</span> <a href="dynamicref.html" class="tsd-signature-type">DynamicRef</a><span class="tsd-signature-symbol">&lt;</span><a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;DynamicRef.of(() &#x3D;&gt; ExecutionModel.batched())</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L410">scheduler.ts:410</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The default <a href="executionmodel.html">ExecutionModel</a> that should be used whenever
+						an execution model isn&#39;t explicitly specified.</p>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="equals" class="tsd-anchor"></a>
+				<h3>equals</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-core/src/errors.ts#L171">errors.ts:171</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L367">scheduler.ts:367</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Implements <code>IEquals.equals</code>.</p>
+							</div>
+						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								<h5>other: <a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="timeouterror.html" class="tsd-signature-type">TimeoutError</a></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 					</li>
 				</ul>
 			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-				<a name="error" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> Error</h3>
-				<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in /home/travis/build/funfix/funfix/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:884</li>
-					</ul>
-				</aside>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="hashcode" class="tsd-anchor"></a>
+				<h3>hash<wbr>Code</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">hash<wbr>Code<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L373">scheduler.ts:373</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Implements <code>IEquals.hashCode</code>.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-				<a name="message" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> message</h3>
-				<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<p>Inherited from Error.message</p>
-					<ul>
-						<li>Defined in /home/travis/build/funfix/funfix/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:874</li>
-					</ul>
-				</aside>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="alwaysasync" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> always<wbr>Async</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">always<wbr>Async<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L390">scheduler.ts:390</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>An <a href="executionmodel.html">ExecutionModel</a> that specifies a run-loop should always do
+									async execution of tasks, thus triggering asynchronous boundaries on
+								each step.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a></h4>
+					</li>
+				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-				<a name="name" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> name</h3>
-				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<p>Inherited from Error.name</p>
-					<ul>
-						<li>Defined in /home/travis/build/funfix/funfix/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:873</li>
-					</ul>
-				</aside>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="batched" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> batched</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">batched<span class="tsd-signature-symbol">(</span>recommendedBatchSize<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L402">scheduler.ts:402</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns an <a href="executionmodel.html">ExecutionModel</a> that specifies a mixed execution
+									mode under which tasks are executed synchronously in batches up to
+								a maximum size, the <code>recommendedBatchSize</code>.</p>
+							</div>
+							<p>After such a batch of <a href="executionmodel.html#recommendedbatchsize">recommendedBatchSize</a> is executed, the
+							next execution should have a forced asynchronous boundary.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> recommendedBatchSize: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a></h4>
+					</li>
+				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
-				<a name="stack" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
-				<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<p>Inherited from Error.stack</p>
-					<p>Overrides Error.stack</p>
-					<ul>
-						<li>Defined in /home/travis/build/funfix/funfix/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:875</li>
-					</ul>
-				</aside>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="synchronous" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> synchronous</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">synchronous<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/scheduler.ts#L381">scheduler.ts:381</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>An <a href="executionmodel.html">ExecutionModel</a> that specifies that execution should be
+								synchronous (immediate, trampolined) for as long as possible.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <a href="executionmodel.html" class="tsd-signature-type">ExecutionModel</a></h4>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

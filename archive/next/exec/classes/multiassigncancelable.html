@@ -924,6 +924,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="dynamicref.html" class="tsd-kind-icon">Dynamic<wbr>Ref</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a>
+		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="future.html" class="tsd-kind-icon">Future</a>
 		</li>
@@ -1007,6 +1010,18 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-variable">
 			<a href="../globals.html#seconds" class="tsd-kind-icon">SECONDS</a>
 		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#lnof2" class="tsd-kind-icon">ln<wbr>Of2</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#maxpowerof2" class="tsd-kind-icon">max<wbr>Power<wbr>Of2</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#log2" class="tsd-kind-icon">log2</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#nextpowerof2" class="tsd-kind-icon">next<wbr>Power<wbr>Of2</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
@@ -1080,7 +1095,7 @@ ref := c3 <span class="hljs-comment">// also cancels c3, because s is already ca
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L496">cancelable.ts:496</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L496">cancelable.ts:496</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1107,7 +1122,7 @@ ref := c3 <span class="hljs-comment">// also cancels c3, because s is already ca
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a>.<a href="../interfaces/iassigncancelable.html#cancel">cancel</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L514">cancelable.ts:514</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L514">cancelable.ts:514</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1130,7 +1145,7 @@ ref := c3 <span class="hljs-comment">// also cancels c3, because s is already ca
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L554">cancelable.ts:554</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L554">cancelable.ts:554</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1153,7 +1168,7 @@ ref := c3 <span class="hljs-comment">// also cancels c3, because s is already ca
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L541">cancelable.ts:541</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L541">cancelable.ts:541</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1188,7 +1203,7 @@ mc2.collapse()
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a>.<a href="../interfaces/iassigncancelable.html#iscanceled">isCanceled</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L511">cancelable.ts:511</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L511">cancelable.ts:511</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1218,7 +1233,7 @@ ref.isCanceled() <span class="hljs-comment">// true</span>
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a>.<a href="../interfaces/iassigncancelable.html#update">update</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L504">cancelable.ts:504</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L504">cancelable.ts:504</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1249,7 +1264,7 @@ ref.isCanceled() <span class="hljs-comment">// true</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L562">cancelable.ts:562</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L562">cancelable.ts:562</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1271,7 +1286,7 @@ ref.isCanceled() <span class="hljs-comment">// true</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/cancelable.ts#L583">cancelable.ts:583</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L583">cancelable.ts:583</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

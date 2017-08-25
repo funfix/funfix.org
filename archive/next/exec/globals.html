@@ -924,6 +924,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/dynamicref.html" class="tsd-kind-icon">Dynamic<wbr>Ref</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a>
+		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/future.html" class="tsd-kind-icon">Future</a>
 		</li>
@@ -980,6 +983,18 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-variable">
 			<a href="globals.html#seconds" class="tsd-kind-icon">SECONDS</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="globals.html#lnof2" class="tsd-kind-icon">ln<wbr>Of2</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="globals.html#maxpowerof2" class="tsd-kind-icon">max<wbr>Power<wbr>Of2</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#log2" class="tsd-kind-icon">log2</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#nextpowerof2" class="tsd-kind-icon">next<wbr>Power<wbr>Of2</a>
 		</li>
 	</ul>
 </nav>
@@ -1118,6 +1133,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 							<li class="tsd-kind-class"><a href="classes/cancelable.html" class="tsd-kind-icon">Cancelable</a></li>
 							<li class="tsd-kind-class"><a href="classes/duration.html" class="tsd-kind-icon">Duration</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/dynamicref.html" class="tsd-kind-icon">Dynamic<wbr>Ref</a></li>
+							<li class="tsd-kind-class"><a href="classes/executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/future.html" class="tsd-kind-icon">Future</a></li>
 							<li class="tsd-kind-class"><a href="classes/globalscheduler.html" class="tsd-kind-icon">Global<wbr>Scheduler</a></li>
 							<li class="tsd-kind-class"><a href="classes/multiassigncancelable.html" class="tsd-kind-icon">Multi<wbr>Assign<wbr>Cancelable</a></li>
@@ -1147,6 +1163,15 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 							<li class="tsd-kind-variable"><a href="globals.html#minutes" class="tsd-kind-icon">MINUTES</a></li>
 							<li class="tsd-kind-variable"><a href="globals.html#nanoseconds" class="tsd-kind-icon">NANOSECONDS</a></li>
 							<li class="tsd-kind-variable"><a href="globals.html#seconds" class="tsd-kind-icon">SECONDS</a></li>
+							<li class="tsd-kind-variable"><a href="globals.html#lnof2" class="tsd-kind-icon">ln<wbr>Of2</a></li>
+							<li class="tsd-kind-variable"><a href="globals.html#maxpowerof2" class="tsd-kind-icon">max<wbr>Power<wbr>Of2</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Functions</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-function"><a href="globals.html#log2" class="tsd-kind-icon">log2</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#nextpowerof2" class="tsd-kind-icon">next<wbr>Power<wbr>Of2</a></li>
 						</ul>
 					</section>
 				</div>
@@ -1160,7 +1185,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 				<div class="tsd-signature tsd-kind-icon">DAYS<span class="tsd-signature-symbol">:</span> <a href="classes/timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> =&nbsp;new Days()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/time.ts#L353">time.ts:353</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/time.ts#L353">time.ts:353</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1175,7 +1200,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 				<div class="tsd-signature tsd-kind-icon">HOURS<span class="tsd-signature-symbol">:</span> <a href="classes/timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> =&nbsp;new Hours()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/time.ts#L333">time.ts:333</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/time.ts#L333">time.ts:333</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1190,7 +1215,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 				<div class="tsd-signature tsd-kind-icon">MICROSECONDS<span class="tsd-signature-symbol">:</span> <a href="classes/timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> =&nbsp;new Microseconds()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/time.ts#L252">time.ts:252</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/time.ts#L252">time.ts:252</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1206,7 +1231,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 				<div class="tsd-signature tsd-kind-icon">MILLISECONDS<span class="tsd-signature-symbol">:</span> <a href="classes/timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> =&nbsp;new Milliseconds()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/time.ts#L273">time.ts:273</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/time.ts#L273">time.ts:273</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1222,7 +1247,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 				<div class="tsd-signature tsd-kind-icon">MINUTES<span class="tsd-signature-symbol">:</span> <a href="classes/timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> =&nbsp;new Minutes()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/time.ts#L313">time.ts:313</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/time.ts#L313">time.ts:313</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1237,7 +1262,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 				<div class="tsd-signature tsd-kind-icon">NANOSECONDS<span class="tsd-signature-symbol">:</span> <a href="classes/timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> =&nbsp;new Nanoseconds()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/time.ts#L231">time.ts:231</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/time.ts#L231">time.ts:231</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1253,7 +1278,7 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 				<div class="tsd-signature tsd-kind-icon">SECONDS<span class="tsd-signature-symbol">:</span> <a href="classes/timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> =&nbsp;new Seconds()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/time.ts#L293">time.ts:293</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/time.ts#L293">time.ts:293</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1261,6 +1286,100 @@ greeting.onComplete(<span class="hljs-function"><span class="hljs-params">r</spa
 						<p>Time unit for representing seconds.</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable">
+				<a name="lnof2" class="tsd-anchor"></a>
+				<h3>ln<wbr>Of2</h3>
+				<div class="tsd-signature tsd-kind-icon">ln<wbr>Of2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;Math.log(2)</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/internals.ts#L73">internals.ts:73</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Natural log of 2</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable">
+				<a name="maxpowerof2" class="tsd-anchor"></a>
+				<h3>max<wbr>Power<wbr>Of2</h3>
+				<div class="tsd-signature tsd-kind-icon">max<wbr>Power<wbr>Of2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1 &lt;&lt; 30</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/internals.ts#L87">internals.ts:87</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The maximum number that can be returned by <a href="globals.html#nextpowerof2">nextPowerOf2</a>.</p>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Functions</h2>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="log2" class="tsd-anchor"></a>
+				<h3>log2</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">log2<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/internals.ts#L80">internals.ts:80</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Calculates the base 2 logarithm of the given argument.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>x: <span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						<p>a number such that 2^nr^ is equal to our argument.</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="nextpowerof2" class="tsd-anchor"></a>
+				<h3>next<wbr>Power<wbr>Of2</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">next<wbr>Power<wbr>Of2<span class="tsd-signature-symbol">(</span>nr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/internals.ts#L97">internals.ts:97</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Given a positive integer, returns the next power of 2 that is bigger
+									than our argument, or the maximum that this function can
+								return which is 2^30^ (or 1,073,741,824).</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>nr: <span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						<p>an integer that is a power of 2, that is bigger or
+						equal with our argument and that is &quot;closest&quot; to it.</p>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

@@ -933,10 +933,22 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="dynamicref.html#set" class="tsd-kind-icon">set</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a href="dynamicref.html#of" class="tsd-kind-icon">of</a>
 				</li>
 			</ul>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="future.html" class="tsd-kind-icon">Future</a>
@@ -995,6 +1007,18 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-variable">
 			<a href="../globals.html#seconds" class="tsd-kind-icon">SECONDS</a>
 		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#lnof2" class="tsd-kind-icon">ln<wbr>Of2</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#maxpowerof2" class="tsd-kind-icon">max<wbr>Power<wbr>Of2</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#log2" class="tsd-kind-icon">log2</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#nextpowerof2" class="tsd-kind-icon">next<wbr>Power<wbr>Of2</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
@@ -1049,6 +1073,9 @@ img { max-width: 100%; }
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bind" class="tsd-kind-icon">bind</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#set" class="tsd-kind-icon">set</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="dynamicref.html#of" class="tsd-kind-icon">of</a></li>
 						</ul>
 					</section>
@@ -1063,7 +1090,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/ref.ts#L36">ref.ts:36</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/ref.ts#L39">ref.ts:39</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1100,7 +1127,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/ref.ts#L68">ref.ts:68</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/ref.ts#L140">ref.ts:140</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1174,7 +1201,7 @@ ref.get() <span class="hljs-comment">// original</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/ref.ts#L98">ref.ts:98</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/ref.ts#L170">ref.ts:170</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1250,6 +1277,134 @@ ref.get() <span class="hljs-comment">// original</span>
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="revert" class="tsd-anchor"></a>
+				<h3>revert</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">revert<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/ref.ts#L109">ref.ts:109</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Reverts this <code>DynamicRef</code> to a previous state, if a previous
+									state is available due to calling <a href="dynamicref.html#set">set</a> or
+								<a href="dynamicref.html#setl">setL</a>.</p>
+							</div>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
+
+ref.set(<span class="hljs-string">"state 2"</span>)
+ref.set(<span class="hljs-string">"state 3"</span>)
+ref.get() <span class="hljs-comment">// Yields: state 3</span>
+
+ref.revert()
+ref.get() <span class="hljs-comment">// Yields: state 2</span>
+
+ref.revert()
+ref.get() <span class="hljs-comment">// Yields: initial</span>
+
+ref.revert() <span class="hljs-comment">// No-op</span>
+ref.get() <span class="hljs-comment">// Yields: initial</span>
+</code></pre>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="set" class="tsd-anchor"></a>
+				<h3>set</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/ref.ts#L61">ref.ts:61</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Updates the underlying of this <code>DynamicRef</code> to the given <code>value</code>.</p>
+							</div>
+							<p>Note that the previous state can be reverted with
+							<a href="dynamicref.html#revert">revert</a>:</p>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
+
+ref.set(<span class="hljs-string">"another"</span>)
+ref.get() <span class="hljs-comment">// another</span>
+
+ref.revert()
+ref.get() <span class="hljs-comment">// initial</span>
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>value: <span class="tsd-signature-type">A</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="setl" class="tsd-anchor"></a>
+				<h3>setL</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">setL<span class="tsd-signature-symbol">(</span>thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/ref.ts#L82">ref.ts:82</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Updates the underlying of this <code>DynamicRef</code> to values generated by the
+								given <code>thunk</code>.</p>
+							</div>
+							<p>Note that the previous state can be reverted with
+							<a href="dynamicref.html#revert">revert</a>:</p>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
+
+ref.setL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"another"</span>)
+ref.get() <span class="hljs-comment">// another</span>
+
+ref.revert()
+ref.get() <span class="hljs-comment">// initial</span>
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 				<a name="of" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagStatic">Static</span> of</h3>
@@ -1260,7 +1415,7 @@ ref.get() <span class="hljs-comment">// original</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/b48bde3/packages/funfix-exec/src/ref.ts#L114">ref.ts:114</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/ref.ts#L189">ref.ts:189</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
