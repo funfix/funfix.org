@@ -913,6 +913,9 @@ img { max-width: 100%; }
 			<a href="eval.html" class="tsd-kind-icon">Eval</a>
 			<ul>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="eval.html#_funadtype" class="tsd-kind-icon">_funADType</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="eval.html#_funkinda" class="tsd-kind-icon">_fun<wbr>KindA</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -920,9 +923,6 @@ img { max-width: 100%; }
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a href="eval.html#_funerasure" class="tsd-kind-icon">_fun<wbr>Erasure</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="eval.html#attempt" class="tsd-kind-icon">attempt</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="eval.html#chain" class="tsd-kind-icon">chain</a>
@@ -940,34 +940,10 @@ img { max-width: 100%; }
 					<a href="eval.html#get" class="tsd-kind-icon">get</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="eval.html#getorelse" class="tsd-kind-icon">get<wbr>OrElse</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="eval.html#getorelsel" class="tsd-kind-icon">get<wbr>OrElseL</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="eval.html#map" class="tsd-kind-icon">map</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="eval.html#memoize" class="tsd-kind-icon">memoize</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="eval.html#memoizeonsuccess" class="tsd-kind-icon">memoize<wbr>OnSuccess</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="eval.html#recover" class="tsd-kind-icon">recover</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="eval.html#recoverwith" class="tsd-kind-icon">recover<wbr>With</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="eval.html#run" class="tsd-kind-icon">run</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="eval.html#transform" class="tsd-kind-icon">transform</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="eval.html#transformwith" class="tsd-kind-icon">transform<wbr>With</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a href="eval.html#always" class="tsd-kind-icon">always</a>
@@ -986,9 +962,6 @@ img { max-width: 100%; }
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a href="eval.html#pure" class="tsd-kind-icon">pure</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<a href="eval.html#raise" class="tsd-kind-icon">raise</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a href="eval.html#suspend" class="tsd-kind-icon">suspend</a>
@@ -1022,13 +995,13 @@ img { max-width: 100%; }
 				<div class="lead">
 					<p>Eval is a monad which controls evaluation.</p>
 				</div>
-				<p>This type wraps a value (or a computation that produces a value)
+				<p>This type wraps a value (or an expression that produces a value)
 					and can produce it on command via the <a href="eval.html#get">get()</a>
 				method.</p>
 				<p>There are three basic evaluation strategies:</p>
 				<ul>
-					<li><a href="eval.html#now">Eval.now</a> and <a href="eval.html#raise">Eval.raise</a>: for describing strict
-					values, evaluated immediately</li>
+					<li><a href="eval.html#now">Eval.now</a>: for describing strict values, evaluated
+					immediately</li>
 					<li><a href="eval.html#once">Eval.once</a>: evaluated only once when the value is needed,
 					with the result memoized (cached) for subsequent evaluations</li>
 					<li><a href="eval.html#always">Eval.always</a>: evaluated every time the value is needed,
@@ -1063,11 +1036,26 @@ img { max-width: 100%; }
 <span class="hljs-comment">// actual evaluation:</span>
 <span class="hljs-keyword">const</span> n: <span class="hljs-built_in">number</span> = cached.get()
 </code></pre>
+				<h2 id="versus-io">Versus IO</h2>
+				<p>For dealing with lazy evaluation, the other alternative is
+				the <a href="io.html">IO</a> data type.</p>
+				<p>Differences between <code>Eval</code> and <code>IO</code>:</p>
+				<ol>
+					<li><code>IO</code> is capable of describing asynchronous computations as well</li>
+					<li><code>IO</code> is capable of error handling (it implements <code>MonadError</code>),
+						whereas <code>Eval</code> does not provide error handling capabilities,
+						being meant to be used for pure expressions (it implements
+					<code>Comonad</code>, which is incompatible with <code>MonadError</code>)</li>
+				</ol>
+				<p>So if you need error handling capabilities
+					(i.e. <code>MonadError&lt;Throwable, ?&gt;</code>), or if you need to describe
+					asynchronous processes, then <a href="io.html">IO</a> is for you. <code>Eval</code>
+					is a simpler data type with the sole purpose of controlling the
+				evaluation of expressions (i.e. strict versus lazy).</p>
+				<h2 id="credits">Credits</h2>
 				<p>This type is inspired by <code>cats.Eval</code> from
 					<a href="http://typelevel.org/cats/" class="external">Typelevel Cats</a>
-					and by <code>monix.eval.Coeval</code> from <a href="https://monix.io" class="external">Monix</a>.
-					Note that the design of this type follows Monix&#39;s <code>Coeval</code>, which
-				means that it does error handling (i.e. it&#39;s a <code>MonadError</code>).</p>
+				and by <code>monix.eval.Coeval</code> from <a href="https://monix.io" class="external">Monix</a>.</p>
 				<dl class="tsd-comment-tags">
 					<dt>final</dt>
 					<dd></dd>
@@ -1097,6 +1085,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="eval.html#_funadtype" class="tsd-kind-icon">_funADType</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="eval.html#_funkinda" class="tsd-kind-icon">_fun<wbr>KindA</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="eval.html#_funkindf" class="tsd-kind-icon">_fun<wbr>KindF</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="eval.html#_funerasure" class="tsd-kind-icon">_fun<wbr>Erasure</a></li>
@@ -1105,29 +1094,19 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eval.html#attempt" class="tsd-kind-icon">attempt</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#chain" class="tsd-kind-icon">chain</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eval.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eval.html#foreachl" class="tsd-kind-icon">for<wbr>EachL</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eval.html#get" class="tsd-kind-icon">get</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#getorelse" class="tsd-kind-icon">get<wbr>OrElse</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#getorelsel" class="tsd-kind-icon">get<wbr>OrElseL</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#map" class="tsd-kind-icon">map</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eval.html#memoize" class="tsd-kind-icon">memoize</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eval.html#memoizeonsuccess" class="tsd-kind-icon">memoize<wbr>OnSuccess</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#recover" class="tsd-kind-icon">recover</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#recoverwith" class="tsd-kind-icon">recover<wbr>With</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eval.html#run" class="tsd-kind-icon">run</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#transform" class="tsd-kind-icon">transform</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="eval.html#transformwith" class="tsd-kind-icon">transform<wbr>With</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#always" class="tsd-kind-icon">always</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#defer" class="tsd-kind-icon">defer</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#now" class="tsd-kind-icon">now</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#of" class="tsd-kind-icon">of</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#once" class="tsd-kind-icon">once</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#pure" class="tsd-kind-icon">pure</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#raise" class="tsd-kind-icon">raise</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#suspend" class="tsd-kind-icon">suspend</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="eval.html#tailrecm" class="tsd-kind-icon">tail<wbr>RecM</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="eval.html#unit" class="tsd-kind-icon">unit</a></li>
@@ -1139,12 +1118,28 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="_funadtype" class="tsd-anchor"></a>
+				<h3>_funADType</h3>
+				<div class="tsd-signature tsd-kind-icon">_funADType<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"now"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"always"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"once"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"suspend"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"flatMap"</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L198">eval.ts:198</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Identifies the <code>Eval</code> reference type, useful for debugging and
+						for pattern matching in the implementation.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="_funkinda" class="tsd-anchor"></a>
 				<h3>_fun<wbr>KindA</h3>
 				<div class="tsd-signature tsd-kind-icon">_fun<wbr>KindA<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">A</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L328">eval.ts:328</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L202">eval.ts:202</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1154,7 +1149,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">_fun<wbr>KindF<span class="tsd-signature-symbol">:</span> <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L327">eval.ts:327</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L201">eval.ts:201</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1164,37 +1159,13 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">_fun<wbr>Erasure<span class="tsd-signature-symbol">:</span> <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L331">eval.ts:331</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L205">eval.ts:205</a></li>
 					</ul>
 				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="attempt" class="tsd-anchor"></a>
-				<h3>attempt</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">attempt<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Either</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L255">eval.ts:255</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Handle errors by turning them into <code>Either</code> values.</p>
-							</div>
-							<p>If there is no error, then a <code>Right</code> value will be returned instead.
-							Errors can be handled by this method.</p>
-						</div>
-						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Either</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 				<a name="chain" class="tsd-anchor"></a>
 				<h3>chain</h3>
@@ -1205,7 +1176,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L185">eval.ts:185</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L147">eval.ts:147</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1257,7 +1228,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L178">eval.ts:178</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L140">eval.ts:140</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1324,7 +1295,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L322">eval.ts:322</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L190">eval.ts:190</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1373,7 +1344,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L311">eval.ts:311</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L179">eval.ts:179</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1423,127 +1394,19 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L92">eval.ts:92</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L106">eval.ts:106</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Evaluates the source <code>Eval</code> and returns the result.</p>
 							</div>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref1 = Eval.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">100</span>)
-ref1.get() <span class="hljs-comment">// 100</span>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = Eval.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">100</span> * <span class="hljs-number">2</span>)
 
-<span class="hljs-keyword">const</span> ref2 = Eval.raise(<span class="hljs-string">"error"</span>)
-ref2.get() <span class="hljs-comment">// throws "error"</span>
+ref.get() <span class="hljs-comment">// 200</span>
 </code></pre>
-							<p>WARNING: this function should be considered partial, as it can
-							throw exception depending on what gets executed, use with care!</p>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="getorelse" class="tsd-anchor"></a>
-				<h3>get<wbr>OrElse</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>OrElse&lt;AA&gt;<span class="tsd-signature-symbol">(</span>fallback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AA</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">AA</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L123">eval.ts:123</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Evaluates the source <code>Eval</code> and returns its successful result,
-									otherwise return the given <code>fallback</code> if the source ends in
-								failure.</p>
-							</div>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref1 = Eval.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">100</span>)
-ref1.getOrElse(<span class="hljs-number">0</span>) <span class="hljs-comment">// 100</span>
-
-<span class="hljs-keyword">const</span> ref2 = Eval.raise(<span class="hljs-string">"error"</span>)
-ref2.getOrElse(<span class="hljs-number">0</span>) <span class="hljs-comment">// 0</span>
-</code></pre>
-							<p>See <a href="eval.html#getorelsel">Eval.getOrElseL</a> for a lazy alternative.</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>AA</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>fallback: <span class="tsd-signature-type">AA</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span>
-							<span class="tsd-signature-symbol"> | </span>
-							<span class="tsd-signature-type">AA</span>
-						</h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="getorelsel" class="tsd-anchor"></a>
-				<h3>get<wbr>OrElseL</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>OrElseL&lt;AA&gt;<span class="tsd-signature-symbol">(</span>thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">AA</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L142">eval.ts:142</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Evaluates the source <code>Eval</code> and returns its successful result,
-									otherwise return the result of the given <code>thunk</code> as a fallback,
-								if the source ends in failure.</p>
-							</div>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref1 = Eval.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">100</span>)
-ref1.getOrElseL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">0</span>) <span class="hljs-comment">// 100</span>
-
-<span class="hljs-keyword">const</span> ref2 = Eval.raise(<span class="hljs-string">"error"</span>)
-ref2.getOrElseL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">0</span>) <span class="hljs-comment">// 0</span>
-</code></pre>
-							<p>See <a href="eval.html#getorelse">Eval.getOrElse</a> for a strict alternative.</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>AA</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AA</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AA</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span>
-							<span class="tsd-signature-symbol"> | </span>
-							<span class="tsd-signature-type">AA</span>
-						</h4>
 					</li>
 				</ul>
 			</section>
@@ -1557,7 +1420,7 @@ ref2.getOrElseL(<span class="hljs-function"><span class="hljs-params">()</span> 
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L154">eval.ts:154</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L116">eval.ts:116</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1612,7 +1475,7 @@ ref2.getOrElseL(<span class="hljs-function"><span class="hljs-params">()</span> 
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L272">eval.ts:272</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L159">eval.ts:159</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1623,346 +1486,8 @@ ref2.getOrElseL(<span class="hljs-function"><span class="hljs-params">()</span> 
 							<p>The resulting <code>Eval</code> will be idempotent, meaning that
 								evaluating it multiple times will have the same effect
 							as evaluating it once.</p>
-							<p>See <a href="eval.html#memoizeonsuccess">.memoizeOnSuccess</a> for a version
-							that only caches successful results.</p>
 						</div>
 						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="memoizeonsuccess" class="tsd-anchor"></a>
-				<h3>memoize<wbr>OnSuccess</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">memoize<wbr>OnSuccess<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L293">eval.ts:293</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Memoizes (cache) the successful result of the source and reuses
-									it on subsequent invocations of <code>get()</code>. Thrown exceptions are
-								not cached.</p>
-							</div>
-							<p>The resulting <code>Eval</code> will be idempotent, but only if the result
-							is successful.</p>
-							<p>See <a href="eval.html#memoize">.memoize</a> for a version that caches both
-							successful results and failures.</p>
-						</div>
-						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="recover" class="tsd-anchor"></a>
-				<h3>recover</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">recover&lt;AA&gt;<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">AA</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L233">eval.ts:233</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Creates a new <code>Eval</code> that will mirror the source on success,
-									but on failure it will try to recover and yield a successful
-								result by applying the given function <code>f</code> to the thrown error.</p>
-							</div>
-							<p>This function is the equivalent of a <code>try/catch</code> statement,
-							or the equivalent of <a href="eval.html#map">.map</a> for errors.</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>AA</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>f: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AA</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>e: <span class="tsd-signature-type">Throwable</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AA</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">AA</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="recoverwith" class="tsd-anchor"></a>
-				<h3>recover<wbr>With</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">recover<wbr>With&lt;AA&gt;<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">AA</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L245">eval.ts:245</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Creates a new <code>Eval</code> that will mirror the source on success,
-									but on failure it will try to recover and yield a successful
-								result by applying the given function <code>f</code> to the thrown error.</p>
-							</div>
-							<p>This function is the equivalent of a <code>try/catch</code> statement,
-							or the equivalent of <a href="eval.html#flatmap">.flatMap</a> for errors.</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>AA</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>f: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AA</span><span class="tsd-signature-symbol">&gt;</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>e: <span class="tsd-signature-type">Throwable</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AA</span><span class="tsd-signature-symbol">&gt;</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">AA</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="run" class="tsd-anchor"></a>
-				<h3>run</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L106">eval.ts:106</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Evaluates the source <code>Eval</code> and returns the result as a <code>Try</code>,
-								capturing any thrown exceptions in the process.</p>
-							</div>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref1 = Eval.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">100</span>)
-ref1.run() <span class="hljs-comment">// Success(100)</span>
-
-<span class="hljs-keyword">const</span> ref2 = Eval.raise(<span class="hljs-string">"error"</span>)
-ref2.run() <span class="hljs-comment">// Failure("error")</span>
-</code></pre>
-						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="transform" class="tsd-anchor"></a>
-				<h3>transform</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">transform&lt;R&gt;<span class="tsd-signature-symbol">(</span>failure<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, success<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L200">eval.ts:200</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Creates a new <code>Eval</code> by applying the &#39;success&#39; function to the
-									successful result of the source, or the &#39;error&#39; function to the
-								potential errors that might happen.</p>
-							</div>
-							<p>This function is similar with <a href="eval.html#map">.map</a>, except that
-							it can also transform errors and not just successful results.</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>failure: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is function for transforming failures</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>e: <span class="tsd-signature-type">Throwable</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<h5>success: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a function for transforming a successful result</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>a: <span class="tsd-signature-type">A</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="transformwith" class="tsd-anchor"></a>
-				<h3>transform<wbr>With</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">transform<wbr>With&lt;R&gt;<span class="tsd-signature-symbol">(</span>failure<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, success<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L219">eval.ts:219</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Creates a new <code>Eval</code> by applying the &#39;success&#39; function to the
-									successful result of the source, or the &#39;error&#39; function to the
-								potential errors that might happen.</p>
-							</div>
-							<p>This function is similar with <a href="eval.html#flatmap">.flatMap</a>,
-								except that it can also transform errors and not just successful
-							results.</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>failure: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is function for transforming failures</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>e: <span class="tsd-signature-type">Throwable</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<h5>success: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a function for transforming a successful result</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>a: <span class="tsd-signature-type">A</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -1976,7 +1501,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L374">eval.ts:374</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L242">eval.ts:242</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2025,7 +1550,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L407">eval.ts:407</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L275">eval.ts:275</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2073,7 +1598,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L351">eval.ts:351</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L225">eval.ts:225</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2108,7 +1633,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L336">eval.ts:336</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L210">eval.ts:210</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2154,7 +1679,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L389">eval.ts:389</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L257">eval.ts:257</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2205,7 +1730,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L345">eval.ts:345</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L219">eval.ts:219</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2231,41 +1756,6 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-				<a name="raise" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> raise</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<li class="tsd-signature tsd-kind-icon">raise&lt;A&gt;<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L365">eval.ts:365</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Returns an <code>Eval</code> that on execution is always finishing in error
-								emitting the specified exception.</p>
-							</div>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>e: <span class="tsd-signature-type">Throwable</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="eval.html" class="tsd-signature-type">Eval</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 				<a name="suspend" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagStatic">Static</span> suspend</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
@@ -2275,7 +1765,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L397">eval.ts:397</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L265">eval.ts:265</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2322,7 +1812,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L419">eval.ts:419</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L287">eval.ts:287</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2383,7 +1873,7 @@ ref2.run() <span class="hljs-comment">// Failure("error")</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/eval.ts#L357">eval.ts:357</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/2549422/packages/funfix-effect/src/eval.ts#L231">eval.ts:231</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
