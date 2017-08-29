@@ -912,6 +912,18 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/eval.html" class="tsd-kind-icon">Eval</a>
 		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/io.html" class="tsd-kind-icon">IO</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/iocontext.html" class="tsd-kind-icon">IOContext</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#iooptions" class="tsd-kind-icon">IOOptions</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#ioregister" class="tsd-kind-icon">IORegister</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
@@ -934,11 +946,14 @@ img { max-width: 100%; }
 				<tbody>
 					<tr>
 						<td><a href="classes/eval.html">Eval</a></td>
-						<td>a lawful, lazy, monadic data type, that can control evaluation, inspired by the <code>Eval</code> type in <a href="http://typelevel.org/cats/">Typelevel Cats</a> and by the <code>Coeval</code> type in <a href="https://monix.io">Monix</a>, the equivalent of Haskell&#39;s <code>IO</code>, but that can only handle immediate execution and not async boundaries.</td>
+						<td>lawful, lazy, monadic data type, that can control evaluation, inspired by the <code>Eval</code> type in <a href="http://typelevel.org/cats/">Typelevel Cats</a> and by the <code>Coeval</code> type in <a href="https://monix.io">Monix</a>, a more simple <code>IO</code>-like type that can only handle immediate execution, no async boundaries, no error handling, not being meant for suspending side effects.</td>
+					</tr>
+					<tr>
+						<td><a href="classes/io.html">IO</a></td>
+						<td>lawful, lazy, monadic data type, capable of expressing and composing side effectful actions, including asynchronous, being the most potent and capable alternative to JavaScript&#39;s <code>Promise</code>, inspired by Haskell&#39;s <code>IO</code> and by the <a href="https://monix.io/docs/2x/eval/task.html">Monix Task</a></td>
 					</tr>
 				</tbody>
 			</table>
-			<p>N.B. an equivalent <code>Task</code> / <code>IO</code> type is coming 😉</p>
 			<h2 id="usage">Usage</h2>
 			<p>You can depend on the whole <code>funfix</code> library, by adding it to
 			<code>package.json</code>:</p>
@@ -983,8 +998,107 @@ img { max-width: 100%; }
 						<h3>Classes</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/eval.html" class="tsd-kind-icon">Eval</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/io.html" class="tsd-kind-icon">IO</a></li>
+							<li class="tsd-kind-class"><a href="classes/iocontext.html" class="tsd-kind-icon">IOContext</a></li>
 						</ul>
 					</section>
+					<section class="tsd-index-section ">
+						<h3>Type aliases</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-type-alias"><a href="globals.html#iooptions" class="tsd-kind-icon">IOOptions</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#ioregister" class="tsd-kind-icon">IORegister</a></li>
+						</ul>
+					</section>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Type aliases</h2>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="iooptions" class="tsd-anchor"></a>
+				<h3>IOOptions</h3>
+				<div class="tsd-signature tsd-kind-icon">IOOptions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/io.ts#L1722">io.ts:1722</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Set of options for customizing IO&#39;s behavior.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>param</dt>
+						<dd><p>should be set to <code>true</code> in
+								case you want <code>flatMap</code> driven loops to be
+								auto-cancelable. Defaults to <code>false</code> because of
+							safety concerns.</p>
+						</dd>
+					</dl>
+				</div>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="ioregister" class="tsd-anchor"></a>
+				<h3>IORegister</h3>
+				<div class="tsd-signature tsd-kind-icon">IORegister<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-effect/src/io.ts#L1616">io.ts:1616</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Type alias representing registration callbacks for tasks
+							created with <code>asyncUnsafe</code>, that are going to get executed
+						when the asynchronous task gets evaluated.</p>
+					</div>
+				</div>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="classes/iocontext.html" class="tsd-signature-type">IOContext</a>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-parameters-title">Parameters</h4>
+									<ul class="tsd-parameters">
+										<li>
+											<h5>context: <a href="classes/iocontext.html" class="tsd-signature-type">IOContext</a></h5>
+										</li>
+										<li>
+											<h5>callback: <span class="tsd-signature-type">function</span></h5>
+											<ul class="tsd-parameters">
+												<li class="tsd-parameter-siganture">
+													<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+													</ul>
+													<ul class="tsd-descriptions">
+														<li class="tsd-description">
+															<h4 class="tsd-parameters-title">Parameters</h4>
+															<ul class="tsd-parameters">
+																<li>
+																	<h5>result: <span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+																</li>
+															</ul>
+															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									</ul>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</section>
 		</section>

@@ -960,6 +960,9 @@ img { max-width: 100%; }
 			<a href="singleassigncancelable.html" class="tsd-kind-icon">Single<wbr>Assign<wbr>Cancelable</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="stackedcancelable.html" class="tsd-kind-icon">Stacked<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="testscheduler.html" class="tsd-kind-icon">Test<wbr>Scheduler</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -997,18 +1000,6 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-variable">
 			<a href="../globals.html#seconds" class="tsd-kind-icon">SECONDS</a>
-		</li>
-		<li class=" tsd-kind-variable">
-			<a href="../globals.html#lnof2" class="tsd-kind-icon">ln<wbr>Of2</a>
-		</li>
-		<li class=" tsd-kind-variable">
-			<a href="../globals.html#maxpowerof2" class="tsd-kind-icon">max<wbr>Power<wbr>Of2</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="../globals.html#log2" class="tsd-kind-icon">log2</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="../globals.html#nextpowerof2" class="tsd-kind-icon">next<wbr>Power<wbr>Of2</a>
 		</li>
 	</ul>
 </nav>
@@ -1065,7 +1056,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/icancelable.html">ICancelable</a>.<a href="../interfaces/icancelable.html#cancel">cancel</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L76">cancelable.ts:76</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-exec/src/cancelable.ts#L76">cancelable.ts:76</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1082,7 +1073,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L127">cancelable.ts:127</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-exec/src/cancelable.ts#L127">cancelable.ts:127</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1091,7 +1082,7 @@ img { max-width: 100%; }
 									immutable list of <a href="cancelable.html">Cancelable</a> references which can be canceled
 								as a group.</p>
 							</div>
-							<pre><code class="lang-typescript">val list = Cancelable.collection(
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> list = Cancelable.collection(
   Cancelable.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Cancelled #1"</span>)),
   Cancelable.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Cancelled #2"</span>)),
   Cancelable.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Cancelled #3"</span>))
@@ -1127,7 +1118,7 @@ list.cancel()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L102">cancelable.ts:102</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-exec/src/cancelable.ts#L102">cancelable.ts:102</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1150,7 +1141,7 @@ list.cancel()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/52dd5d2/packages/funfix-exec/src/cancelable.ts#L94">cancelable.ts:94</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/c576396/packages/funfix-exec/src/cancelable.ts#L94">cancelable.ts:94</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
