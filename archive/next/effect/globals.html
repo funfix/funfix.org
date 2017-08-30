@@ -960,23 +960,28 @@ img { max-width: 100%; }
 			<pre><code class="lang-bash">npm install --save funfix
 </code></pre>
 			<p>In this case imports are like:</p>
-			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Eval } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
+			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Eval, IO } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
 </code></pre>
 			<p>Or for finer grained dependency management, the project can depend
 			only on <code>funfix-effect</code>:</p>
 			<pre><code class="lang-bash">npm install --save funfix-effect
 </code></pre>
 			<p>In this case imports are like:</p>
-			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Future } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix-effect"</span>
+			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Eval, IO } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix-effect"</span>
 </code></pre>
 			<p>Usage sample:</p>
-			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Eval } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
+			<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { IO } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
 
-<span class="hljs-keyword">const</span> f1 = Eval.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"hello"</span>)
-<span class="hljs-keyword">const</span> f2 = Eval.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"world"</span>)
+<span class="hljs-keyword">const</span> f1 = IO.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"hello"</span>)
+<span class="hljs-keyword">const</span> f2 = IO.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"world"</span>)
 
-<span class="hljs-keyword">const</span> greeting = Eval.map2(f1, f2, <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a + <span class="hljs-string">" "</span> + b)
-<span class="hljs-built_in">console</span>.info(greeting.get())
+<span class="hljs-keyword">const</span> greeting = IO.map2(f1, f2, <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a + <span class="hljs-string">" "</span> + b)
+
+greeting.run().onComplete(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span>
+  result.fold(
+    <span class="hljs-built_in">console</span>.error,
+    <span class="hljs-built_in">console</span>.info
+  ))
 </code></pre>
 			<h3 id="modules-umd-and-es-2015">Modules: UMD and ES 2015</h3>
 			<p>The library has been compiled using
@@ -1019,7 +1024,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">IOOptions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/44ad8ef/packages/funfix-effect/src/io.ts#L1746">io.ts:1746</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/12475a0/packages/funfix-effect/src/io.ts#L1746">io.ts:1746</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1047,7 +1052,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">IORegister<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/44ad8ef/packages/funfix-effect/src/io.ts#L1640">io.ts:1640</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/12475a0/packages/funfix-effect/src/io.ts#L1640">io.ts:1640</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
