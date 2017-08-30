@@ -922,6 +922,12 @@ img { max-width: 100%; }
 					<a href="ioinstances.html#attempt" class="tsd-kind-icon">attempt</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a href="ioinstances.html#coflatmap" class="tsd-kind-icon">coflat<wbr>Map</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a href="ioinstances.html#coflatten" class="tsd-kind-icon">coflatten</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="ioinstances.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
@@ -988,6 +994,7 @@ img { max-width: 100%; }
 			<h3>Implements</h3>
 			<ul class="tsd-hierarchy">
 				<li><a href="monaderror.html" class="tsd-signature-type">MonadError</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<li><a href="coflatmap.html" class="tsd-signature-type">CoflatMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -1005,6 +1012,8 @@ img { max-width: 100%; }
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="ioinstances.html#ap" class="tsd-kind-icon">ap</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="ioinstances.html#attempt" class="tsd-kind-icon">attempt</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="ioinstances.html#coflatmap" class="tsd-kind-icon">coflat<wbr>Map</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="ioinstances.html#coflatten" class="tsd-kind-icon">coflatten</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="ioinstances.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="ioinstances.html#followedby" class="tsd-kind-icon">followed<wbr>By</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="ioinstances.html#followedbyl" class="tsd-kind-icon">followed<wbr>ByL</a></li>
@@ -1032,7 +1041,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">global<span class="tsd-signature-symbol">:</span> <a href="ioinstances.html" class="tsd-signature-type">IOInstances</a><span class="tsd-signature-symbol"> =&nbsp;new IOInstances()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L444">instances.ts:444</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L522">instances.ts:522</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1049,7 +1058,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L390">instances.ts:390</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L460">instances.ts:460</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1084,7 +1093,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L408">instances.ts:408</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L478">instances.ts:478</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1104,6 +1113,88 @@ img { max-width: 100%; }
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<a name="coflatmap" class="tsd-anchor"></a>
+				<h3>coflat<wbr>Map</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">coflat<wbr>Map&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#iok" class="tsd-signature-type">IOK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, ff<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L514">instances.ts:514</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>A</h4>
+							</li>
+							<li>
+								<h4>B</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>fa: <a href="../globals.html#iok" class="tsd-signature-type">IOK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5>ff: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../globals.html#iok" class="tsd-signature-type">IOK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>a: <a href="../globals.html#iok" class="tsd-signature-type">IOK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">B</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<a name="coflatten" class="tsd-anchor"></a>
+				<h3>coflatten</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">coflatten&lt;A&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#iok" class="tsd-signature-type">IOK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L518">instances.ts:518</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>A</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>fa: <a href="../globals.html#iok" class="tsd-signature-type">IOK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 				<a name="flatmap" class="tsd-anchor"></a>
 				<h3>flat<wbr>Map</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
@@ -1113,7 +1204,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L382">instances.ts:382</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L452">instances.ts:452</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1166,7 +1257,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L424">instances.ts:424</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L494">instances.ts:494</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1201,7 +1292,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L428">instances.ts:428</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L498">instances.ts:498</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1248,7 +1339,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L432">instances.ts:432</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L502">instances.ts:502</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1283,7 +1374,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L436">instances.ts:436</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L506">instances.ts:506</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1330,7 +1421,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L396">instances.ts:396</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L466">instances.ts:466</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1383,7 +1474,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L420">instances.ts:420</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L490">instances.ts:490</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1445,7 +1536,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L440">instances.ts:440</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L510">instances.ts:510</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1480,7 +1571,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L378">instances.ts:378</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L448">instances.ts:448</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1509,7 +1600,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L404">instances.ts:404</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L474">instances.ts:474</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1538,7 +1629,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L416">instances.ts:416</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L486">instances.ts:486</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1588,7 +1679,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L412">instances.ts:412</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L482">instances.ts:482</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1638,7 +1729,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L386">instances.ts:386</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L456">instances.ts:456</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1691,7 +1782,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/05e6310/packages/funfix-types/src/instances.ts#L400">instances.ts:400</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L470">instances.ts:470</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IO</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>

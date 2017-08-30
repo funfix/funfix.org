@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EvalInstances | funfix-types</title>
+	<title>CoflatMapLaws | funfix-types</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -909,56 +909,29 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-class">
-			<a href="evalinstances.html" class="tsd-kind-icon">Eval<wbr>Instances</a>
+		<li class="current tsd-kind-class tsd-has-type-parameter">
+			<a href="coflatmaplaws.html" class="tsd-kind-icon">Coflat<wbr>Map<wbr>Laws</a>
 			<ul>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="evalinstances.html#followedby" class="tsd-kind-icon">followed<wbr>By</a>
+					<a href="coflatmaplaws.html#f" class="tsd-kind-icon">F</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="evalinstances.html#followedbyl" class="tsd-kind-icon">followed<wbr>ByL</a>
+					<a href="coflatmaplaws.html#covariantcomposition" class="tsd-kind-icon">covariant<wbr>Composition</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="evalinstances.html#foreffect" class="tsd-kind-icon">for<wbr>Effect</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="evalinstances.html#foreffectl" class="tsd-kind-icon">for<wbr>EffectL</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="evalinstances.html#map2" class="tsd-kind-icon">map2</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="evalinstances.html#product" class="tsd-kind-icon">product</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a href="evalinstances.html#global" class="tsd-kind-icon">global</a>
+					<a href="coflatmaplaws.html#covariantidentity" class="tsd-kind-icon">covariant<wbr>Identity</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#ap" class="tsd-kind-icon">ap</a>
+					<a href="coflatmaplaws.html#coflatmapassociativity" class="tsd-kind-icon">coflat<wbr>Map<wbr>Associativity</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#coflatmap" class="tsd-kind-icon">coflat<wbr>Map</a>
+					<a href="coflatmaplaws.html#coflatmapidentity" class="tsd-kind-icon">coflat<wbr>Map<wbr>Identity</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#coflatten" class="tsd-kind-icon">coflatten</a>
+					<a href="coflatmaplaws.html#coflattencoherence" class="tsd-kind-icon">coflatten<wbr>Coherence</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#extract" class="tsd-kind-icon">extract</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#map" class="tsd-kind-icon">map</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#pure" class="tsd-kind-icon">pure</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="evalinstances.html#tailrecm" class="tsd-kind-icon">tail<wbr>RecM</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="evalinstances.html#unit" class="tsd-kind-icon">unit</a>
+					<a href="coflatmaplaws.html#coflattenthroughmap" class="tsd-kind-icon">coflatten<wbr>Through<wbr>Map</a>
 				</li>
 			</ul>
 		</li>
@@ -969,23 +942,50 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Type class instances provided by default for <code>Eval</code>.</p>
+					<p>Type class laws defined for <a href="coflatmap.html">CoflatMap</a>.</p>
 				</div>
+				<p>This is an abstract definition. In order to use it in unit testing,
+					the implementor must think of a strategy to evaluate the truthiness
+				of the returned <code>Equiv</code> values.</p>
+				<p>Even though in TypeScript the Funfix library is using classes to
+					express these laws, when implementing this class it is recommended
+					that you implement it as a mixin using <code>implements</code>, instead of
+					extending it directly with <code>extends</code>. See
+					<a href="https://www.typescriptlang.org/docs/handbook/mixins.html" class="external">TypeScript: Mixins</a>
+				for details and note that we already have <code>applyMixins</code> defined.</p>
+				<p>We are doing this in order to support multiple inheritance and to
+					avoid inheriting any <code>static</code> members. In the Flow definitions (e.g.
+					<code>.js.flow</code> files) for Funfix these classes are defined with
+					<code>interface</code>, as they are meant to be interfaces that sometimes have
+				default implementations and not classes.</p>
 			</div>
+		</section>
+		<section class="tsd-panel tsd-type-parameters">
+			<h3>Type parameters</h3>
+			<ul class="tsd-type-parameters">
+				<li>
+					<h4>F</h4>
+				</li>
+			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">EvalInstances</span>
+					<span class="target">CoflatMapLaws</span>
 				</li>
 			</ul>
 		</section>
 		<section class="tsd-panel">
 			<h3>Implements</h3>
 			<ul class="tsd-hierarchy">
-				<li><a href="monad.html" class="tsd-signature-type">Monad</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
-				<li><a href="comonad.html" class="tsd-signature-type">Comonad</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<li><a href="functorlaws.html" class="tsd-signature-type">FunctorLaws</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span></li>
+			</ul>
+		</section>
+		<section class="tsd-panel">
+			<h3>Implemented by</h3>
+			<ul class="tsd-hierarchy">
+				<li><a href="comonadlaws.html" class="tsd-signature-type">ComonadLaws</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -995,27 +995,18 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="evalinstances.html#followedby" class="tsd-kind-icon">followed<wbr>By</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="evalinstances.html#followedbyl" class="tsd-kind-icon">followed<wbr>ByL</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="evalinstances.html#foreffect" class="tsd-kind-icon">for<wbr>Effect</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="evalinstances.html#foreffectl" class="tsd-kind-icon">for<wbr>EffectL</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="evalinstances.html#map2" class="tsd-kind-icon">map2</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="evalinstances.html#product" class="tsd-kind-icon">product</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="evalinstances.html#global" class="tsd-kind-icon">global</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="coflatmaplaws.html#f" class="tsd-kind-icon">F</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="coflatmaplaws.html#covariantcomposition" class="tsd-kind-icon">covariant<wbr>Composition</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="coflatmaplaws.html#covariantidentity" class="tsd-kind-icon">covariant<wbr>Identity</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#ap" class="tsd-kind-icon">ap</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#coflatmap" class="tsd-kind-icon">coflat<wbr>Map</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#coflatten" class="tsd-kind-icon">coflatten</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#extract" class="tsd-kind-icon">extract</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#map" class="tsd-kind-icon">map</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#pure" class="tsd-kind-icon">pure</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="evalinstances.html#tailrecm" class="tsd-kind-icon">tail<wbr>RecM</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="evalinstances.html#unit" class="tsd-kind-icon">unit</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="coflatmaplaws.html#coflatmapassociativity" class="tsd-kind-icon">coflat<wbr>Map<wbr>Associativity</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="coflatmaplaws.html#coflatmapidentity" class="tsd-kind-icon">coflat<wbr>Map<wbr>Identity</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="coflatmaplaws.html#coflattencoherence" class="tsd-kind-icon">coflatten<wbr>Coherence</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="coflatmaplaws.html#coflattenthroughmap" class="tsd-kind-icon">coflatten<wbr>Through<wbr>Map</a></li>
 						</ul>
 					</section>
 				</div>
@@ -1024,216 +1015,41 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="followedby" class="tsd-anchor"></a>
-				<h3>followed<wbr>By</h3>
-				<div class="tsd-signature tsd-kind-icon">followed<wbr>By<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<a name="f" class="tsd-anchor"></a>
+				<h3>F</h3>
+				<div class="tsd-signature tsd-kind-icon">F<span class="tsd-signature-symbol">:</span> <a href="coflatmap.html" class="tsd-signature-type">CoflatMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L342">instances.ts:342</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/comonad.ts#L158">comonad.ts:158</a></li>
 					</ul>
 				</aside>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-has-type-parameter tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon">&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, fb<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-type-parameters-title">Type parameters</h4>
-									<ul class="tsd-type-parameters">
-										<li>
-											<h4>A</h4>
-										</li>
-										<li>
-											<h4>B</h4>
-										</li>
-									</ul>
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-										<li>
-											<h5>fb: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The <a href="coflatmap.html">CoflatMap</a> designated instance for <code>F</code>,
+						to be tested.</p>
+					</div>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="followedbyl" class="tsd-anchor"></a>
-				<h3>followed<wbr>ByL</h3>
-				<div class="tsd-signature tsd-kind-icon">followed<wbr>ByL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<a name="covariantcomposition" class="tsd-anchor"></a>
+				<h3>covariant<wbr>Composition</h3>
+				<div class="tsd-signature tsd-kind-icon">covariant<wbr>Composition<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L343">instances.ts:343</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/comonad.ts#L215">comonad.ts:215</a></li>
 					</ul>
 				</aside>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-has-type-parameter tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon">&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, fb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-type-parameters-title">Type parameters</h4>
-									<ul class="tsd-type-parameters">
-										<li>
-											<h4>A</h4>
-										</li>
-										<li>
-											<h4>B</h4>
-										</li>
-									</ul>
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-										<li>
-											<h5>fb: <span class="tsd-signature-type">function</span></h5>
-											<ul class="tsd-parameters">
-												<li class="tsd-parameter-siganture">
-													<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-													</ul>
-													<ul class="tsd-descriptions">
-														<li class="tsd-description">
-															<h4 class="tsd-returns-title">Returns <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Mixed-in from <a href="functorlaws.html#covariantcomposition">FunctorLaws.covariantComposition</a>.</p>
+					</div>
 				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="foreffect" class="tsd-anchor"></a>
-				<h3>for<wbr>Effect</h3>
-				<div class="tsd-signature tsd-kind-icon">for<wbr>Effect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L344">instances.ts:344</a></li>
-					</ul>
-				</aside>
 				<div class="tsd-type-declaration">
 					<h4>Type declaration</h4>
 					<ul class="tsd-parameters">
 						<li class="tsd-parameter-siganture">
 							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-has-type-parameter tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon">&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, fb<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-type-parameters-title">Type parameters</h4>
-									<ul class="tsd-type-parameters">
-										<li>
-											<h4>A</h4>
-										</li>
-										<li>
-											<h4>B</h4>
-										</li>
-									</ul>
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-										<li>
-											<h5>fb: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="foreffectl" class="tsd-anchor"></a>
-				<h3>for<wbr>EffectL</h3>
-				<div class="tsd-signature tsd-kind-icon">for<wbr>EffectL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L345">instances.ts:345</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-has-type-parameter tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon">&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, fb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-type-parameters-title">Type parameters</h4>
-									<ul class="tsd-type-parameters">
-										<li>
-											<h4>A</h4>
-										</li>
-										<li>
-											<h4>B</h4>
-										</li>
-									</ul>
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-										<li>
-											<h5>fb: <span class="tsd-signature-type">function</span></h5>
-											<ul class="tsd-parameters">
-												<li class="tsd-parameter-siganture">
-													<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-													</ul>
-													<ul class="tsd-descriptions">
-														<li class="tsd-description">
-															<h4 class="tsd-returns-title">Returns <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="map2" class="tsd-anchor"></a>
-				<h3>map2</h3>
-				<div class="tsd-signature tsd-kind-icon">map2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L340">instances.ts:340</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-has-type-parameter tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon">&lt;A, B, Z&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, fb<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span>, f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Z</span><span class="tsd-signature-symbol">&gt;</span></li>
+								<li class="tsd-signature tsd-kind-icon">&lt;A, B, C&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, g<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 							</ul>
 							<ul class="tsd-descriptions">
 								<li class="tsd-description">
@@ -1246,23 +1062,20 @@ img { max-width: 100%; }
 											<h4>B</h4>
 										</li>
 										<li>
-											<h4>Z</h4>
+											<h4>C</h4>
 										</li>
 									</ul>
 									<h4 class="tsd-parameters-title">Parameters</h4>
 									<ul class="tsd-parameters">
 										<li>
-											<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-										<li>
-											<h5>fb: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<h5>fa: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 										</li>
 										<li>
 											<h5>f: <span class="tsd-signature-type">function</span></h5>
 											<ul class="tsd-parameters">
 												<li class="tsd-parameter-siganture">
 													<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Z</span></li>
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span></li>
 													</ul>
 													<ul class="tsd-descriptions">
 														<li class="tsd-description">
@@ -1271,18 +1084,36 @@ img { max-width: 100%; }
 																<li>
 																	<h5>a: <span class="tsd-signature-type">A</span></h5>
 																</li>
+															</ul>
+															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">B</span></h4>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<h5>g: <span class="tsd-signature-type">function</span></h5>
+											<ul class="tsd-parameters">
+												<li class="tsd-parameter-siganture">
+													<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span></li>
+													</ul>
+													<ul class="tsd-descriptions">
+														<li class="tsd-description">
+															<h4 class="tsd-parameters-title">Parameters</h4>
+															<ul class="tsd-parameters">
 																<li>
 																	<h5>b: <span class="tsd-signature-type">B</span></h5>
 																</li>
 															</ul>
-															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Z</span></h4>
+															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">C</span></h4>
 														</li>
 													</ul>
 												</li>
 											</ul>
 										</li>
 									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Z</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4 class="tsd-returns-title">Returns <a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 						</li>
@@ -1290,20 +1121,25 @@ img { max-width: 100%; }
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="product" class="tsd-anchor"></a>
-				<h3>product</h3>
-				<div class="tsd-signature tsd-kind-icon">product<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<a name="covariantidentity" class="tsd-anchor"></a>
+				<h3>covariant<wbr>Identity</h3>
+				<div class="tsd-signature tsd-kind-icon">covariant<wbr>Identity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L341">instances.ts:341</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/comonad.ts#L213">comonad.ts:213</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Mixed-in from <a href="functorlaws.html#covariantidentity">FunctorLaws.covariantIdentity</a>.</p>
+					</div>
+				</div>
 				<div class="tsd-type-declaration">
 					<h4>Type declaration</h4>
 					<ul class="tsd-parameters">
 						<li class="tsd-parameter-siganture">
 							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-has-type-parameter tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon">&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, fb<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+								<li class="tsd-signature tsd-kind-icon">&lt;A&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 							</ul>
 							<ul class="tsd-descriptions">
 								<li class="tsd-description">
@@ -1312,52 +1148,42 @@ img { max-width: 100%; }
 										<li>
 											<h4>A</h4>
 										</li>
-										<li>
-											<h4>B</h4>
-										</li>
 									</ul>
 									<h4 class="tsd-parameters-title">Parameters</h4>
 									<ul class="tsd-parameters">
 										<li>
-											<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										</li>
-										<li>
-											<h5>fb: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<h5>fa: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 										</li>
 									</ul>
-									<h4 class="tsd-returns-title">Returns <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4 class="tsd-returns-title">Returns <a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 						</li>
 					</ul>
 				</div>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-				<a name="global" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> global</h3>
-				<div class="tsd-signature tsd-kind-icon">global<span class="tsd-signature-symbol">:</span> <a href="evalinstances.html" class="tsd-signature-type">EvalInstances</a><span class="tsd-signature-symbol"> =&nbsp;new EvalInstances()</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L347">instances.ts:347</a></li>
-					</ul>
-				</aside>
-			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="ap" class="tsd-anchor"></a>
-				<h3>ap</h3>
+				<a name="coflatmapassociativity" class="tsd-anchor"></a>
+				<h3>coflat<wbr>Map<wbr>Associativity</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">ap&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, ff<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">coflat<wbr>Map<wbr>Associativity&lt;A, B, C&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, g<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L313">instances.ts:313</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/comonad.ts#L165">comonad.ts:165</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<pre><code> fa.coflatMap<span class="hljs-comment">(f)</span>.coflatMap<span class="hljs-comment">(g)</span> &lt;-&gt; fa.coflatMap<span class="hljs-comment">(x =&gt; g(x.coflatMap(f)</span>))
+</code></pre>
+							</div>
+						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
 							<li>
@@ -1366,60 +1192,143 @@ img { max-width: 100%; }
 							<li>
 								<h4>B</h4>
 							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
 							<li>
-								<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-							<li>
-								<h5>ff: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="coflatmap" class="tsd-anchor"></a>
-				<h3>coflat<wbr>Map</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">coflat<wbr>Map&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, ff<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L327">instances.ts:327</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-							<li>
-								<h4>B</h4>
+								<h4>C</h4>
 							</li>
 						</ul>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>fa: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 							<li>
-								<h5>ff: <span class="tsd-signature-type">function</span></h5>
+								<h5>f: <span class="tsd-signature-type">function</span></h5>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span></li>
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span></li>
 										</ul>
 										<ul class="tsd-descriptions">
 											<li class="tsd-description">
 												<h4 class="tsd-parameters-title">Parameters</h4>
 												<ul class="tsd-parameters">
 													<li>
-														<h5>a: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														<h5>a: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">B</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5>g: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>b<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>b: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">C</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<a name="coflatmapidentity" class="tsd-anchor"></a>
+				<h3>coflat<wbr>Map<wbr>Identity</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">coflat<wbr>Map<wbr>Identity&lt;A&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/comonad.ts#L204">comonad.ts:204</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<pre><code><span class="hljs-selector-tag">fa</span><span class="hljs-selector-class">.coflatten</span> &lt;<span class="hljs-selector-tag">-</span>&gt; <span class="hljs-selector-tag">fa</span><span class="hljs-selector-class">.coflatMap</span>(<span class="hljs-selector-tag">identity</span>)
+</code></pre>
+							</div>
+						</div>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>A</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>fa: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<a name="coflattencoherence" class="tsd-anchor"></a>
+				<h3>coflatten<wbr>Coherence</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">coflatten<wbr>Coherence&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/comonad.ts#L191">comonad.ts:191</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<pre><code><span class="hljs-selector-tag">fa</span><span class="hljs-selector-class">.coflatMap</span>(<span class="hljs-selector-tag">f</span>) &lt;<span class="hljs-selector-tag">-</span>&gt; <span class="hljs-selector-tag">fa</span><span class="hljs-selector-class">.coflatten</span><span class="hljs-selector-class">.map</span>(<span class="hljs-selector-tag">f</span>)
+</code></pre>
+							</div>
+						</div>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>A</h4>
+							</li>
+							<li>
+								<h4>B</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>fa: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5>f: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>a: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 													</li>
 												</ul>
 												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">B</span></h4>
@@ -1429,23 +1338,29 @@ img { max-width: 100%; }
 								</ul>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="coflatten" class="tsd-anchor"></a>
-				<h3>coflatten</h3>
+				<a name="coflattenthroughmap" class="tsd-anchor"></a>
+				<h3>coflatten<wbr>Through<wbr>Map</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">coflatten&lt;A&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">coflatten<wbr>Through<wbr>Map&lt;A&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L331">instances.ts:331</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/comonad.ts#L178">comonad.ts:178</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<pre><code>fa<span class="hljs-selector-class">.coflatten</span><span class="hljs-selector-class">.coflatten</span> &lt;-&gt; fa<span class="hljs-selector-class">.coflatten</span><span class="hljs-selector-class">.map</span>(_.coflatten)
+</code></pre>
+							</div>
+						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
 							<li>
@@ -1455,244 +1370,10 @@ img { max-width: 100%; }
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>fa: <a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="extract" class="tsd-anchor"></a>
-				<h3>extract</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">extract&lt;A&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L335">instances.ts:335</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="flatmap" class="tsd-anchor"></a>
-				<h3>flat<wbr>Map</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">flat<wbr>Map&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L305">instances.ts:305</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-							<li>
-								<h4>B</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-							<li>
-								<h5>f: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>a: <span class="tsd-signature-type">A</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="map" class="tsd-anchor"></a>
-				<h3>map</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">map&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>fa<span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L319">instances.ts:319</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-							<li>
-								<h4>B</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>fa: <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-							<li>
-								<h5>f: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>a: <span class="tsd-signature-type">A</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">B</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="pure" class="tsd-anchor"></a>
-				<h3>pure</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">pure&lt;A&gt;<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L301">instances.ts:301</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>a: <span class="tsd-signature-type">A</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="tailrecm" class="tsd-anchor"></a>
-				<h3>tail<wbr>RecM</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">tail<wbr>RecM&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span>, f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L309">instances.ts:309</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-							<li>
-								<h4>B</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>a: <span class="tsd-signature-type">A</span></h5>
-							</li>
-							<li>
-								<h5>f: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Either</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>a: <span class="tsd-signature-type">A</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <a href="../globals.html#evalk" class="tsd-signature-type">EvalK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Either</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="unit" class="tsd-anchor"></a>
-				<h3>unit</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">unit<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/577ba5a/packages/funfix-types/src/instances.ts#L323">instances.ts:323</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Eval</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <a href="equiv.html" class="tsd-signature-type">Equiv</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/hk.html" class="tsd-signature-type">HK</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
