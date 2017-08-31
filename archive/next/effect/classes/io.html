@@ -1148,7 +1148,7 @@ img { max-width: 100%; }
 						<tr>
 							<td><strong>Asynchronous</strong></td>
 							<td style="text-align:center"><code>(Try&lt;A&gt; =&gt; void) =&gt; void</code></td>
-							<td style="text-align:center"><code>() =&gt; ((Try&lt;A&gt; =&gt; void) =&gt; void</code></td>
+							<td style="text-align:center"><code>() =&gt; ((Try&lt;A&gt; =&gt; void) =&gt; void)</code></td>
 						</tr>
 						<tr>
 							<td></td>
@@ -1205,7 +1205,7 @@ img { max-width: 100%; }
 					that can be completed already or might be completed at some point
 					in the future, once the running asynchronous process finishes.
 					It&#39;s the equivalent of JavaScript&#39;s <code>Promise</code>, only better and
-				cancellable, see next topic.</p>
+				cancelable, see next topic.</p>
 				<h2 id="laziness">Laziness</h2>
 				<p>The fact that <code>IO</code> is lazy, whereas <code>Future</code> and <code>Promise</code> are not
 				has real consequences. For example with <code>IO</code> you can do this:</p>
@@ -1236,8 +1236,41 @@ img { max-width: 100%; }
 </code></pre>
 				<p>This keeps repeating the computation for as long as the result is a
 				failure and caches it only on success. Yes we can!</p>
+				<h3 id="parallelism">Parallelism</h3>
+				<p>Because of laziness, invoking <a href="io.html#sequence">IO.sequence</a> will not work like
+					it does for <code>Future.sequence</code> or <code>Promise.all</code>, the given <code>IO</code> values
+					being evaluated one after another, in <em>sequence</em>, not in <em>parallel</em>.
+					If you want parallelism, then you need to use <a href="io.html#gather">IO.gather</a> and
+				thus be explicit about it.</p>
+				<p>This is great because it gives you the possibility of fine tuning the
+					execution. For example, say you want to execute things in parallel,
+					but with a maximum limit of 30 tasks being executed in parallel.
+				One way of doing that is to process your list in batches.</p>
+				<p>This sample assumes you have <a href="https://lodash.com/">lodash</a> installed,
+				for manipulating our array:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> _ <span class="hljs-keyword">from</span> <span class="hljs-string">"lodash"</span>
+<span class="hljs-keyword">import</span> { IO } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
+
+<span class="hljs-comment">// Some array of IOs, you come up with something good :-)</span>
+<span class="hljs-keyword">const</span> list: IO&lt;<span class="hljs-built_in">string</span>&gt;[] = ???
+
+<span class="hljs-comment">// Split our list in chunks of 30 items per chunk,</span>
+<span class="hljs-comment">// this being the maximum parallelism allowed</span>
+<span class="hljs-keyword">const</span> chunks = _.chunks(list, <span class="hljs-number">30</span>)
+<span class="hljs-comment">// Specify that each batch should process stuff in parallel</span>
+<span class="hljs-keyword">const</span> batchedIOs = _.map(chunks, <span class="hljs-function"><span class="hljs-params">chunk</span> =&gt;</span> Task.gather(chunk))
+<span class="hljs-comment">// Sequence the batches</span>
+<span class="hljs-keyword">const</span> allBatches = Task.sequence(batchedIOs)
+
+<span class="hljs-comment">// Flatten the result, within the context of IO</span>
+<span class="hljs-keyword">const</span> all: IO&lt;<span class="hljs-built_in">string</span>[]&gt; =
+  allBatches.map(<span class="hljs-function"><span class="hljs-params">batches</span> =&gt;</span> _.flatten(batches))
+</code></pre>
+				<p>Note that the built <code>IO</code> reference is just a specification at this point,
+					or you can view it as a function, as nothing has executed yet, you need
+				to call <a href="io.html#run">.run</a> explicitly.</p>
 				<h2 id="cancellation">Cancellation</h2>
-				<p>The logic described by an <code>IO</code> task could be cancellable, depending
+				<p>The logic described by an <code>IO</code> task could be cancelable, depending
 					on how the <code>IO</code> gets built. This is where the <code>IO</code>-<code>Future</code>
 				symbiosis comes into play.</p>
 				<p>Futures can also be canceled, in case the described computation can
@@ -1451,7 +1484,7 @@ io.run(ec)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L503">io.ts:503</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L543">io.ts:543</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1505,7 +1538,7 @@ self.forEffect(IO.shift(ec))
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L461">io.ts:461</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L501">io.ts:501</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1552,7 +1585,7 @@ io.attempt().map(<span class="hljs-function"><span class="hljs-params">either</s
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L510">io.ts:510</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L550">io.ts:550</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1604,7 +1637,7 @@ io.attempt().map(<span class="hljs-function"><span class="hljs-params">either</s
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L527">io.ts:527</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L567">io.ts:567</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1641,7 +1674,7 @@ fa.delayExecution(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L553">io.ts:553</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L593">io.ts:593</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1683,7 +1716,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L595">io.ts:595</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L635">io.ts:635</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1720,7 +1753,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L576">io.ts:576</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L616">io.ts:616</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1776,7 +1809,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L624">io.ts:624</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L664">io.ts:664</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1814,7 +1847,7 @@ IO.shift(ec).followedBy(self)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L637">io.ts:637</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L677">io.ts:677</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1846,7 +1879,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L658">io.ts:658</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L698">io.ts:698</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1881,7 +1914,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L686">io.ts:686</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L726">io.ts:726</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1948,7 +1981,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L706">io.ts:706</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L746">io.ts:746</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1989,7 +2022,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L715">io.ts:715</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L755">io.ts:755</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2037,7 +2070,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L735">io.ts:735</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L775">io.ts:775</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2078,7 +2111,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L753">io.ts:753</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L793">io.ts:793</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2136,7 +2169,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L768">io.ts:768</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L808">io.ts:808</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2168,7 +2201,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L795">io.ts:795</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L835">io.ts:835</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2200,7 +2233,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L824">io.ts:824</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L864">io.ts:864</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2261,7 +2294,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L852">io.ts:852</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L892">io.ts:892</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2330,7 +2363,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L350">io.ts:350</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L390">io.ts:390</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2390,7 +2423,7 @@ f.cancel()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L420">io.ts:420</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L460">io.ts:460</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2500,7 +2533,7 @@ c.cancel()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L872">io.ts:872</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L912">io.ts:912</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2540,7 +2573,7 @@ fa.timeout(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L895">io.ts:895</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L935">io.ts:935</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2592,7 +2625,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L912">io.ts:912</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L952">io.ts:952</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2675,7 +2708,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L931">io.ts:931</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L971">io.ts:971</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2759,7 +2792,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L968">io.ts:968</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1008">io.ts:1008</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2817,7 +2850,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L979">io.ts:979</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1019">io.ts:1019</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2896,7 +2929,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1034">io.ts:1034</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1074">io.ts:1074</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2955,7 +2988,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1044">io.ts:1044</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1084">io.ts:1084</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3003,7 +3036,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1072">io.ts:1072</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1112">io.ts:1112</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3074,7 +3107,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1088">io.ts:1088</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1128">io.ts:1128</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3123,7 +3156,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1102">io.ts:1102</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1142">io.ts:1142</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3182,7 +3215,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1120">io.ts:1120</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1160">io.ts:1160</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3225,7 +3258,7 @@ io.run()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1154">io.ts:1154</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1194">io.ts:1194</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3277,7 +3310,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1212">io.ts:1212</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1252">io.ts:1252</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3333,7 +3366,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1168">io.ts:1168</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1208">io.ts:1208</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3372,7 +3405,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1185">io.ts:1185</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1225">io.ts:1225</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3407,7 +3440,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1664">io.ts:1664</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1704">io.ts:1704</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3460,7 +3493,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1241">io.ts:1241</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1281">io.ts:1281</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3545,7 +3578,7 @@ IO.map2(fa1, IO.raise(<span class="hljs-string">"error"</span>),
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1274">io.ts:1274</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1314">io.ts:1314</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3640,7 +3673,7 @@ IO.map3(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1307">io.ts:1307</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1347">io.ts:1347</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3744,7 +3777,7 @@ IO.map4(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1343">io.ts:1343</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1383">io.ts:1383</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3860,7 +3893,7 @@ IO.map5(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1381">io.ts:1381</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1421">io.ts:1421</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3987,7 +4020,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1393">io.ts:1393</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1433">io.ts:1433</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4022,7 +4055,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1398">io.ts:1398</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1438">io.ts:1438</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4068,7 +4101,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1413">io.ts:1413</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1453">io.ts:1453</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4119,7 +4152,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1442">io.ts:1442</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1482">io.ts:1482</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4205,7 +4238,7 @@ IO.parMap2(fa1, IO.raise(<span class="hljs-string">"error"</span>),
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1477">io.ts:1477</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1517">io.ts:1517</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4302,7 +4335,7 @@ IO.parMap3(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1512">io.ts:1512</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1552">io.ts:1552</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4408,7 +4441,7 @@ IO.parMap4(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1550">io.ts:1550</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1590">io.ts:1590</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4526,7 +4559,7 @@ IO.parMap5(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1590">io.ts:1590</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1630">io.ts:1630</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4655,7 +4688,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1603">io.ts:1603</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1643">io.ts:1643</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4690,7 +4723,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1609">io.ts:1609</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1649">io.ts:1649</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4725,7 +4758,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1633">io.ts:1633</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1673">io.ts:1673</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4773,7 +4806,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1713">io.ts:1713</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1753">io.ts:1753</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4831,7 +4864,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1722">io.ts:1722</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1762">io.ts:1762</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4878,7 +4911,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1734">io.ts:1734</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1774">io.ts:1774</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4939,7 +4972,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1753">io.ts:1753</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1793">io.ts:1793</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4962,7 +4995,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/7ed2f5a/packages/funfix-effect/src/io.ts#L1766">io.ts:1766</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d011e88/packages/funfix-effect/src/io.ts#L1806">io.ts:1806</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
