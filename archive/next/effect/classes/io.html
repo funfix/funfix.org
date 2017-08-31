@@ -915,18 +915,6 @@ img { max-width: 100%; }
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="io.html" class="tsd-kind-icon">IO</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="io.html#_funadtype" class="tsd-kind-icon">_funADType</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="io.html#_funkinda" class="tsd-kind-icon">_fun<wbr>KindA</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="io.html#_funkindf" class="tsd-kind-icon">_fun<wbr>KindF</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a href="io.html#_funerasure" class="tsd-kind-icon">_fun<wbr>Erasure</a>
-				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="io.html#asyncboundary" class="tsd-kind-icon">async<wbr>Boundary</a>
 				</li>
@@ -1128,11 +1116,15 @@ img { max-width: 100%; }
 				</div>
 				<p>Compared with Funfix&#39;s
 					<a href="https://funfix.org/api/exec/classes/future.html">Future</a> (see
-					<code>funfix-exec</code>) or JavaScript&#39;s <code>Promise</code>, <code>IO</code> does not represent a
-					running computation or a value detached from time, as <code>IO</code> does not
-					execute anything when working with its builders or operators and it
-					does not submit any work into the <code>Scheduler</code> or any run-loop for
-				execution, the execution eventually taking place only after <a href="io.html#run">IO.run</a> is called and not before that.</p>
+					<a href="https://funfix.org/api/exec/">funfix-exec</a>) or JavaScript&#39;s
+					<a href="https://promisesaplus.com/">Promise</a>,
+					<code>IO</code> does not represent a running computation or a value detached
+					from time, as <code>IO</code> does not execute anything when working with its
+					builders or operators and it does not submit any work into the
+					<a href="https://funfix.org/api/exec/classes/scheduler.html">Scheduler</a> or any
+					run-loop for execution, the execution eventually
+					taking place only after <a href="io.html#run">IO.run</a> is called and not before
+				that.</p>
 				<p>In order to understand <code>IO</code>, here&#39;s the design space:</p>
 				<table>
 					<thead>
@@ -1211,11 +1203,48 @@ img { max-width: 100%; }
 				<p>The returned type is a
 					<a href="https://funfix.org/api/exec/classes/future.html">Future</a>, a value
 					that can be completed already or might be completed at some point
-				in the future, once the running asynchronous process finishes.</p>
+					in the future, once the running asynchronous process finishes.
+					It&#39;s the equivalent of JavaScript&#39;s <code>Promise</code>, only better and
+				cancellable, see next topic.</p>
+				<h2 id="laziness">Laziness</h2>
+				<p>The fact that <code>IO</code> is lazy, whereas <code>Future</code> and <code>Promise</code> are not
+				has real consequences. For example with <code>IO</code> you can do this:</p>
+				<pre><code class="lang-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">retryOnFailure</span>&lt;<span class="hljs-title">A</span>&gt;(<span class="hljs-params">times: <span class="hljs-built_in">number</span>, io: IO&lt;A&gt;</span>): <span class="hljs-title">IO</span>&lt;<span class="hljs-title">A</span>&gt; </span>{
+  <span class="hljs-keyword">return</span> source.recoverWith(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-comment">// No more retries left? Re-throw error:</span>
+    <span class="hljs-keyword">if</span> (times &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> IO.raise(err)
+    <span class="hljs-comment">// Recursive call, yes we can!</span>
+    <span class="hljs-keyword">return</span> retryOnFailure(times - <span class="hljs-number">1</span>, io)
+      <span class="hljs-comment">// Adding 500 ms delay for good measure</span>
+      .delayExecution(<span class="hljs-number">500</span>)
+  })
+}
+</code></pre>
+				<p><code>Future</code> being a strict value-wannabe means that the actual value
+					gets &quot;memoized&quot; (means cached), however <code>IO</code> is basically a function
+					that can be repeated for as many times as you want. <code>IO</code> can also
+				do memoization of course:</p>
+				<pre><code class="lang-typescript">io.memoize()
+</code></pre>
+				<p>The difference between this and just calling <code>run()</code> is that
+					<code>memoize()</code> still returns an <code>IO</code> and the actual memoization
+					happens on the first <code>run()</code> (with idempotency guarantees of
+				course).</p>
+				<p>But here&#39;s something else that <code>Future</code> or your favorite
+				<code>Promise</code>-like data type cannot do:</p>
+				<pre><code class="lang-typescript">io.memoizeOnSuccess()
+</code></pre>
+				<p>This keeps repeating the computation for as long as the result is a
+				failure and caches it only on success. Yes we can!</p>
+				<h2 id="cancellation">Cancellation</h2>
+				<p>The logic described by an <code>IO</code> task could be cancellable, depending
+					on how the <code>IO</code> gets built. This is where the <code>IO</code>-<code>Future</code>
+				symbiosis comes into play.</p>
 				<p>Futures can also be canceled, in case the described computation can
-					be canceled. Not in this case (since there&#39;s nothing that can be
-					cancelled when building tasks with <code>IO.of</code>), but, we can build
-				cancelable tasks with <a href="io.html#async">IO.async</a>:</p>
+					be canceled. When describing <code>IO</code> tasks with <code>IO.of</code> nothing can be
+					cancelled, since there&#39;s nothing about a plain function that you
+					can cancel, but, we can build cancelable tasks with
+				<a href="io.html#async">IO.async</a>:</p>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Cancelable, Success, IO } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
 
 <span class="hljs-keyword">const</span> delayedHello = IO.async(<span class="hljs-function">(<span class="hljs-params">scheduler, callback</span>) =&gt;</span> {
@@ -1247,6 +1276,24 @@ img { max-width: 100%; }
 <span class="hljs-comment">// If we change our mind before the timespan has passed:</span>
 f.cancel()
 </code></pre>
+				<p>Also, given an <code>IO</code> task, we can specify actions that need to be
+				triggered in case of cancellation:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> io = IO.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.info(<span class="hljs-string">"Hello!"</span>))
+  .executeForked()
+
+io.doOnCancel(IO.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.info(<span class="hljs-string">"A cancellation attempt was made!"</span>)
+})
+
+<span class="hljs-keyword">const</span> f: Future&lt;<span class="hljs-built_in">void</span>&gt; = io.run()
+
+<span class="hljs-comment">// Note that in this case cancelling the resulting Future</span>
+<span class="hljs-comment">// will not stop the actual execution, since it doesn't know</span>
+<span class="hljs-comment">// how, but it will trigger our on-cancel callback:</span>
+
+f.cancel()
+<span class="hljs-comment">//=&gt; A cancellation attempt was made!</span>
+</code></pre>
 				<h2 id="note-on-the-executionmodel">Note on the ExecutionModel</h2>
 				<p><code>IO</code> is conservative in how it introduces async boundaries.
 					Transformations like <code>map</code> and <code>flatMap</code> for example will default
@@ -1275,7 +1322,7 @@ io.run(ec)
 				scheduler, by means of <a href="io.html#executewithmodel">IO.executeWithModel</a>:</p>
 				<pre><code class="lang-typescript">io.executeWithModel(ExecutionModel.batched(<span class="hljs-number">256</span>))
 </code></pre>
-				<h2 id="versus-io">Versus IO</h2>
+				<h2 id="versus-eval">Versus Eval</h2>
 				<p>For dealing with lazy evaluation, the other alternative is
 				the <a href="eval.html">Eval</a> data type.</p>
 				<p>Differences between <code>Eval</code> and <code>IO</code>:</p>
@@ -1325,15 +1372,6 @@ io.run(ec)
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
-						<h3>Properties</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="io.html#_funadtype" class="tsd-kind-icon">_funADType</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="io.html#_funkinda" class="tsd-kind-icon">_fun<wbr>KindA</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="io.html#_funkindf" class="tsd-kind-icon">_fun<wbr>KindF</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="io.html#_funerasure" class="tsd-kind-icon">_fun<wbr>Erasure</a></li>
-						</ul>
-					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
@@ -1402,55 +1440,6 @@ io.run(ec)
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="_funadtype" class="tsd-anchor"></a>
-				<h3>_funADType</h3>
-				<div class="tsd-signature tsd-kind-icon">_funADType<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"pure"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"always"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"once"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"flatMap"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"async"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"memoize"</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L719">io.ts:719</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Identifies the <code>IO</code> reference type, useful for debugging and
-						for pattern matching in the implementation.</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="_funkinda" class="tsd-anchor"></a>
-				<h3>_fun<wbr>KindA</h3>
-				<div class="tsd-signature tsd-kind-icon">_fun<wbr>KindA<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">A</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L723">io.ts:723</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="_funkindf" class="tsd-anchor"></a>
-				<h3>_fun<wbr>KindF</h3>
-				<div class="tsd-signature tsd-kind-icon">_fun<wbr>KindF<span class="tsd-signature-symbol">:</span> <a href="io.html" class="tsd-signature-type">IO</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L722">io.ts:722</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-				<a name="_funerasure" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> _fun<wbr>Erasure</h3>
-				<div class="tsd-signature tsd-kind-icon">_fun<wbr>Erasure<span class="tsd-signature-symbol">:</span> <a href="io.html" class="tsd-signature-type">IO</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L726">io.ts:726</a></li>
-					</ul>
-				</aside>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="asyncboundary" class="tsd-anchor"></a>
@@ -1462,7 +1451,7 @@ io.run(ec)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L322">io.ts:322</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L503">io.ts:503</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1481,6 +1470,13 @@ io.run(ec)
 							<p>Between reading the path and then reading the file from that
 								path, we schedule an async boundary (it usually happens with
 							JavaScript&#39;s <code>setTimeout</code> under the hood).</p>
+							<p>This is equivalent with:</p>
+							<pre><code class="lang-typescript">self.flatMap(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> IO.shift(ec).map(_ =&gt; a))
+
+<span class="hljs-comment">// ... or ...</span>
+
+self.forEffect(IO.shift(ec))
+</code></pre>
 							<p>Also see <a href="io.html#shift">IO.shift</a> and <a href="io.html#fork">IO.fork</a>.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1509,15 +1505,38 @@ io.run(ec)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L290">io.ts:290</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L461">io.ts:461</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Handle errors by turning them into <code>Either</code> values.</p>
+								<p>Handle errors by lifting results into <code>Either</code> values.</p>
 							</div>
-							<p>If there is no error, then a <code>Right</code> value will be returned instead.
-							Errors can be handled by this method.</p>
+							<p>If there&#39;s an error, then a <code>Left</code> value will be signaled. If
+							there is no error, then a <code>Right</code> value will be signaled instead.</p>
+							<p>The returned type is an
+								<a href="https://funfix.org/api/core/classes/either.html">Either</a> value,
+								which is what&#39;s called a &quot;logical disjunction&quot; or a &quot;tagged union
+								type&quot;, representing a choice between two values, in this case
+							errors on the &quot;Left&quot; and successful results on the &quot;Right&quot;.</p>
+							<pre><code class="lang-typescript"><span class="hljs-comment">// Describing an IO that can fail on execution:</span>
+<span class="hljs-keyword">const</span> io: IO&lt;<span class="hljs-built_in">number</span>&gt; = IO.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> n = <span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">1000</span>
+  <span class="hljs-keyword">const</span> m = n &amp; n <span class="hljs-comment">// to integer</span>
+  <span class="hljs-keyword">if</span> (m % <span class="hljs-number">2</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"No odds please!"</span>)
+  <span class="hljs-keyword">return</span> m
+})
+
+<span class="hljs-comment">// By using attempt() we can observe and use errors</span>
+<span class="hljs-comment">// in `map` and `flatMap` transformations:</span>
+io.attempt().map(<span class="hljs-function"><span class="hljs-params">either</span> =&gt;</span>
+  either.fold(
+    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-string">"odd"</span>,
+    <span class="hljs-function"><span class="hljs-params">val</span> =&gt;</span> <span class="hljs-string">"even"</span>
+  ))
+</code></pre>
+							<p>For other error handling capabilities, see <a href="io.html#recoverwith">IO.recoverWith</a>
+							and <a href="io.html#transformwith">IO.transformWith</a>.</p>
 						</div>
 						<h4 class="tsd-returns-title">Returns <a href="io.html" class="tsd-signature-type">IO</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Either</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
@@ -1533,7 +1552,7 @@ io.run(ec)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L329">io.ts:329</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L510">io.ts:510</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1585,7 +1604,7 @@ io.run(ec)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L346">io.ts:346</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L527">io.ts:527</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1622,7 +1641,7 @@ fa.delayExecution(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L372">io.ts:372</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L553">io.ts:553</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1664,7 +1683,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L414">io.ts:414</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L595">io.ts:595</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1701,7 +1720,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L395">io.ts:395</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L576">io.ts:576</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1714,7 +1733,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 							returned by <code>f</code> complete.</p>
 							<p>NOTE: The given function is only called when the task is
 								complete.  However the function does not get called if the task
-								gets canceled.  Cancellation is a process that&#39;s concurrent with
+								gets canceled. Cancellation is a process that&#39;s concurrent with
 							the execution of a task and hence needs special handling.</p>
 							<p>See <a href="io.html#dooncancel">IO.doOnCancel</a> for specifying a callback to call on
 							canceling a task.</p>
@@ -1757,7 +1776,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L433">io.ts:433</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L624">io.ts:624</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1765,7 +1784,14 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 								<p>Ensures that an asynchronous boundary happens before the
 								execution, managed by the provided scheduler.</p>
 							</div>
-							<p>Alias for <code>IO.fork(this)</code>.</p>
+							<p>Alias for <a href="io.html#fork">IO.fork</a>.</p>
+							<p>Calling this is equivalent with:</p>
+							<pre><code class="lang-typescript">IO.shift(ec).flatMap(_ =&gt; self)
+
+<span class="hljs-comment">// ... or ...</span>
+
+IO.shift(ec).followedBy(self)
+</code></pre>
 							<p>See <a href="io.html#fork">IO.fork</a>, <a href="io.html#asyncboundary">IO.asyncBoundary</a> and <a href="io.html#shift">IO.shift</a>.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1788,7 +1814,7 @@ fa.delayResult(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L446">io.ts:446</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L637">io.ts:637</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1820,7 +1846,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L467">io.ts:467</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L658">io.ts:658</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1855,7 +1881,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L495">io.ts:495</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L686">io.ts:686</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1922,7 +1948,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L515">io.ts:515</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L706">io.ts:706</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1963,7 +1989,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L524">io.ts:524</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L715">io.ts:715</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2011,7 +2037,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L544">io.ts:544</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L735">io.ts:735</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2052,7 +2078,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L556">io.ts:556</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L753">io.ts:753</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2061,6 +2087,9 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 								successful result emitted by the source.</p>
 							</div>
 							<pre><code class="lang-typescript">IO.now(<span class="hljs-number">111</span>).map(_ =&gt; _ * <span class="hljs-number">2</span>).get() <span class="hljs-comment">// 222</span>
+</code></pre>
+							<p>Note there&#39;s a correspondence between <code>flatMap</code> and <code>map</code>:</p>
+							<pre><code class="lang-typescript">fa.map(f) &lt;-&gt; fa.flatMap(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> IO.pure(f(x)))
 </code></pre>
 						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2107,7 +2136,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L571">io.ts:571</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L768">io.ts:768</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2139,12 +2168,12 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L598">io.ts:598</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L795">io.ts:795</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Memoizes (cache) the successful result of the source task
+								<p>Memoizes (caches) the successful result of the source task
 									and reuses it on subsequent invocations of <code>run</code>.
 								Thrown exceptions are not cached.</p>
 							</div>
@@ -2171,7 +2200,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L620">io.ts:620</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L824">io.ts:824</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2182,6 +2211,11 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 							</div>
 							<p>This function is the equivalent of a <code>try/catch</code> statement,
 							or the equivalent of <a href="io.html#map">.map</a> for errors.</p>
+							<pre><code class="lang-typescript">io.recover(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.error(err)
+  fallback
+})
+</code></pre>
 						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
@@ -2227,7 +2261,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L632">io.ts:632</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L852">io.ts:852</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2238,6 +2272,19 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 							</div>
 							<p>This function is the equivalent of a <code>try/catch</code> statement,
 							or the equivalent of <a href="io.html#flatmap">.flatMap</a> for errors.</p>
+							<p>Note that because of <code>IO</code>&#39;s laziness, this can describe retry
+							loop:</p>
+							<pre><code class="lang-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">retryOnFailure</span>&lt;<span class="hljs-title">A</span>&gt;(<span class="hljs-params">times: <span class="hljs-built_in">number</span>, io: IO&lt;A&gt;</span>): <span class="hljs-title">IO</span>&lt;<span class="hljs-title">A</span>&gt; </span>{
+  <span class="hljs-keyword">return</span> source.recoverWith(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-comment">// No more retries left? Re-throw error:</span>
+    <span class="hljs-keyword">if</span> (times &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> IO.raise(err)
+    <span class="hljs-comment">// Recursive call, yes we can!</span>
+    <span class="hljs-keyword">return</span> retryOnFailure(times - <span class="hljs-number">1</span>, io)
+      <span class="hljs-comment">// Adding 500 ms delay for good measure</span>
+      .delayExecution(<span class="hljs-number">500</span>)
+  })
+}
+</code></pre>
 						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
@@ -2283,7 +2330,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L252">io.ts:252</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L350">io.ts:350</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2292,6 +2339,26 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 							</div>
 							<p>Without invoking <code>run</code> on a <code>IO</code>, nothing gets evaluated, as an
 							<code>IO</code> has lazy behavior.</p>
+							<pre><code class="lang-typescript"><span class="hljs-comment">// Describing a side effect</span>
+<span class="hljs-keyword">const</span> io = IO.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Hello!"</span>))
+  <span class="hljs-comment">// Delaying it for 1 second, for didactical purposes</span>
+  .delayExecution(<span class="hljs-number">1000</span>)
+
+<span class="hljs-comment">// Nothing executes until we call run on it, which gives</span>
+<span class="hljs-comment">// us a Future in return:</span>
+<span class="hljs-keyword">const</span> f: Future&lt;<span class="hljs-built_in">void</span>&gt; = io.run()
+
+<span class="hljs-comment">// The given Future is cancelable, in case the logic</span>
+<span class="hljs-comment">// decribed by our IO is cancelable, so we can do this:</span>
+f.cancel()
+</code></pre>
+							<p>Note that <code>run</code> takes a
+								<a href="https://funfix.org/api/exec/classes/scheduler.html">Scheduler</a>
+								as an optional parameter and if one isn&#39;t provided, then the
+								default scheduler gets used. The <code>Scheduler</code> is in charge
+								of scheduling asynchronous boundaries, executing tasks
+								with a delay (e.g. <code>setTimeout</code>) or of reporting failures
+							(with <code>console.error</code> by default).</p>
 							<p>Also see <a href="io.html#runoncomplete">IO.runOnComplete</a> for a version that takes a
 							callback as parameter.</p>
 						</div>
@@ -2323,7 +2390,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L276">io.ts:276</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L420">io.ts:420</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2332,6 +2399,45 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 							</div>
 							<p>Without invoking <code>run</code> on a <code>IO</code>, nothing gets evaluated, as an
 							<code>IO</code> has lazy behavior.</p>
+							<p><code>runComplete</code> starts the evaluation and takes a callback which
+							will be triggered when the computation is complete.</p>
+							<p>Compared with JavaScript&#39;s <code>Promise.then</code> the provided callback
+								is a function that receives a
+								<a href="https://funfix.org/api/core/classes/try.html">Try</a> value, a data
+								type which is what&#39;s called a &quot;logical disjunction&quot;, or a &quot;tagged
+								union type&quot;, a data type that can represent both successful
+								results and failures. This is because in Funfix we don&#39;t work
+							with <code>null</code>.</p>
+							<p>Also the returned value is an
+								<a href="https://funfix.org/api/exec/interfaces/icancelable.html">ICancelable</a>
+								reference, which can be used to cancel the running computation,
+								in case the logic described by our <code>IO</code> is cancelable (note that
+								some procedures cannot be cancelled, it all depends on how the
+								<code>IO</code> value was described, see <a href="io.html#async">IO.async</a> for how cancelable
+							<code>IO</code> values can be built).</p>
+							<p>Example:</p>
+							<pre><code class="lang-typescript"><span class="hljs-comment">// Describing a side effect</span>
+<span class="hljs-keyword">const</span> io = IO.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Hello!"</span>))
+  .delayExecution(<span class="hljs-number">1000</span>)
+
+<span class="hljs-comment">// Nothing executes until we explicitly run our `IO`:</span>
+<span class="hljs-keyword">const</span> c: ICancelable = io.runOnComplete(<span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span>
+  r.fold(
+    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.error(err),
+    _ =&gt; <span class="hljs-built_in">console</span>.info(<span class="hljs-string">"Done!"</span>)
+  ))
+
+<span class="hljs-comment">// In case we change our mind and the logic described by</span>
+<span class="hljs-comment">// our `IO` is cancelable, we can cancel it:</span>
+c.cancel()
+</code></pre>
+							<p>Note that <code>runOnComplete</code> takes a
+								<a href="https://funfix.org/api/exec/classes/scheduler.html">Scheduler</a>
+								as an optional parameter and if one isn&#39;t provided, then the
+								default scheduler gets used. The <code>Scheduler</code> is in charge
+								of scheduling asynchronous boundaries, executing tasks
+								with a delay (e.g. <code>setTimeout</code>) or of reporting failures
+							(with <code>console.error</code> by default).</p>
 							<p>Also see <a href="io.html#run">IO.run</a> for a version that returns a <code>Future</code>,
 								which might be easier to work with, especially since a <code>Future</code>
 							is <code>Promise</code>-like.</p>
@@ -2394,7 +2500,7 @@ io.executeWithModel(ExecutionModel.alwaysAsync())
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L652">io.ts:652</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L872">io.ts:872</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2434,7 +2540,7 @@ fa.timeout(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L675">io.ts:675</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L895">io.ts:895</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2486,7 +2592,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L692">io.ts:692</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L912">io.ts:912</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2509,7 +2615,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 							<li>
 								<h5>failure: <span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>is function for transforming failures</p>
+									<p>is a function for transforming failures</p>
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
@@ -2569,7 +2675,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L711">io.ts:711</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L931">io.ts:931</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2593,7 +2699,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 							<li>
 								<h5>failure: <span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>is function for transforming failures</p>
+									<p>is a function for transforming failures</p>
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
@@ -2653,7 +2759,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L735">io.ts:735</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L968">io.ts:968</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2663,6 +2769,15 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 							</div>
 							<p>Note that since <code>IO</code> is not memoized by global, this will
 							recompute the value each time the <code>IO</code> is executed.</p>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> io = IO.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Hello!"</span>) })
+
+io.run()
+<span class="hljs-comment">//=&gt; Hello!</span>
+io.run()
+<span class="hljs-comment">//=&gt; Hello!</span>
+io.run()
+<span class="hljs-comment">//=&gt; Hello!</span>
+</code></pre>
 						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
@@ -2702,7 +2817,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L746">io.ts:746</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L979">io.ts:979</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2781,13 +2896,13 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L801">io.ts:801</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1034">io.ts:1034</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Constructs a lazy <a href="io.html">IO</a> instance whose result
-								will be computed asynchronously.</p>
+								<p>Constructs a lazy <a href="io.html">IO</a> instance whose result will be computed
+								asynchronously.</p>
 							</div>
 							<p><strong>WARNING:</strong> Unsafe to use directly, only use if you know
 								what you&#39;re doing. For building <code>IO</code> instances safely
@@ -2840,7 +2955,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L811">io.ts:811</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1044">io.ts:1044</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2888,7 +3003,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L839">io.ts:839</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1072">io.ts:1072</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2959,7 +3074,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L855">io.ts:855</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1088">io.ts:1088</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3008,7 +3123,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L869">io.ts:869</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1102">io.ts:1102</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3067,7 +3182,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L887">io.ts:887</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1120">io.ts:1120</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3110,7 +3225,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, IO.raise(<span class="hljs-k
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L921">io.ts:921</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1154">io.ts:1154</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3162,7 +3277,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L979">io.ts:979</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1212">io.ts:1212</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3218,7 +3333,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L935">io.ts:935</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1168">io.ts:1168</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3257,7 +3372,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L952">io.ts:952</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1185">io.ts:1185</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3292,7 +3407,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1431">io.ts:1431</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1664">io.ts:1664</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3345,7 +3460,7 @@ IO.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1008">io.ts:1008</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1241">io.ts:1241</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3430,7 +3545,7 @@ IO.map2(fa1, IO.raise(<span class="hljs-string">"error"</span>),
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1041">io.ts:1041</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1274">io.ts:1274</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3525,7 +3640,7 @@ IO.map3(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1074">io.ts:1074</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1307">io.ts:1307</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3629,7 +3744,7 @@ IO.map4(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1110">io.ts:1110</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1343">io.ts:1343</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3745,7 +3860,7 @@ IO.map5(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1148">io.ts:1148</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1381">io.ts:1381</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3872,7 +3987,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1160">io.ts:1160</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1393">io.ts:1393</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3907,7 +4022,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1165">io.ts:1165</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1398">io.ts:1398</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3953,7 +4068,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1180">io.ts:1180</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1413">io.ts:1413</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4004,7 +4119,7 @@ IO.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1209">io.ts:1209</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1442">io.ts:1442</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4090,7 +4205,7 @@ IO.parMap2(fa1, IO.raise(<span class="hljs-string">"error"</span>),
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1244">io.ts:1244</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1477">io.ts:1477</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4187,7 +4302,7 @@ IO.parMap3(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1279">io.ts:1279</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1512">io.ts:1512</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4293,7 +4408,7 @@ IO.parMap4(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1317">io.ts:1317</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1550">io.ts:1550</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4411,7 +4526,7 @@ IO.parMap5(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1357">io.ts:1357</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1590">io.ts:1590</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4540,7 +4655,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1370">io.ts:1370</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1603">io.ts:1603</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4575,7 +4690,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1376">io.ts:1376</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1609">io.ts:1609</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4610,7 +4725,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1400">io.ts:1400</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1633">io.ts:1633</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4658,7 +4773,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1480">io.ts:1480</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1713">io.ts:1713</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4716,7 +4831,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1489">io.ts:1489</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1722">io.ts:1722</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4763,7 +4878,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1501">io.ts:1501</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1734">io.ts:1734</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4824,7 +4939,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1520">io.ts:1520</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1753">io.ts:1753</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -4847,7 +4962,7 @@ IO.parMap6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/be0a3c6/packages/funfix-effect/src/io.ts#L1533">io.ts:1533</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/fd8b7d7/packages/funfix-effect/src/io.ts#L1766">io.ts:1766</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
