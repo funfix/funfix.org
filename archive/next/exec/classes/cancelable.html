@@ -922,6 +922,9 @@ img { max-width: 100%; }
 					<a href="cancelable.html#cancel" class="tsd-kind-icon">cancel</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="cancelable.html#cancelall" class="tsd-kind-icon">cancel<wbr>All</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a href="cancelable.html#collection" class="tsd-kind-icon">collection</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -931,6 +934,12 @@ img { max-width: 100%; }
 					<a href="cancelable.html#of" class="tsd-kind-icon">of</a>
 				</li>
 			</ul>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="chainedcancelable.html" class="tsd-kind-icon">Chained<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="dummycancelable.html" class="tsd-kind-icon">Dummy<wbr>Cancelable</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="duration.html" class="tsd-kind-icon">Duration</a>
@@ -943,6 +952,9 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="future.html" class="tsd-kind-icon">Future</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="futuremaker.html" class="tsd-kind-icon">Future<wbr>Maker</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="globalscheduler.html" class="tsd-kind-icon">Global<wbr>Scheduler</a>
@@ -1035,6 +1047,7 @@ img { max-width: 100%; }
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="cancelable.html#cancel" class="tsd-kind-icon">cancel</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="cancelable.html#cancelall" class="tsd-kind-icon">cancel<wbr>All</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="cancelable.html#collection" class="tsd-kind-icon">collection</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="cancelable.html#empty" class="tsd-kind-icon">empty</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="cancelable.html#of" class="tsd-kind-icon">of</a></li>
@@ -1056,9 +1069,40 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/icancelable.html">ICancelable</a>.<a href="../interfaces/icancelable.html#cancel">cancel</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/cancelable.ts#L76">cancelable.ts:76</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L80">cancelable.ts:80</a></li>
 							</ul>
 						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="cancelall" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> cancel<wbr>All</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">cancel<wbr>All<span class="tsd-signature-symbol">(</span>refs<span class="tsd-signature-symbol">: </span><a href="cancelable.html" class="tsd-signature-type">Cancelable</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L142">cancelable.ts:142</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Utility that cancels a list of cancelable references, delaying
+								any thrown exceptions until all references have been cancelled.</p>
+							</div>
+							<p>In case multiple exceptions are caught, then the thrown exception
+							is going to be a <code>CompositeError</code>.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>refs: <a href="cancelable.html" class="tsd-signature-type">Cancelable</a><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
@@ -1073,7 +1117,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/cancelable.ts#L127">cancelable.ts:127</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L131">cancelable.ts:131</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1118,7 +1162,7 @@ list.cancel()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/cancelable.ts#L102">cancelable.ts:102</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L106">cancelable.ts:106</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1141,7 +1185,7 @@ list.cancel()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/cancelable.ts#L94">cancelable.ts:94</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L98">cancelable.ts:98</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

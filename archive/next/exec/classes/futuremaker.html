@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DynamicRef | funfix-exec</title>
+	<title>FutureMaker | funfix-exec</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -927,31 +927,8 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class">
 			<a href="duration.html" class="tsd-kind-icon">Duration</a>
 		</li>
-		<li class="current tsd-kind-class tsd-has-type-parameter">
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="dynamicref.html" class="tsd-kind-icon">Dynamic<wbr>Ref</a>
-			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="dynamicref.html#get" class="tsd-kind-icon">get</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="dynamicref.html#bind" class="tsd-kind-icon">bind</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#set" class="tsd-kind-icon">set</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<a href="dynamicref.html#of" class="tsd-kind-icon">of</a>
-				</li>
-			</ul>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a>
@@ -959,8 +936,43 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="future.html" class="tsd-kind-icon">Future</a>
 		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
+		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="futuremaker.html" class="tsd-kind-icon">Future<wbr>Maker</a>
+			<ul>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#chainto" class="tsd-kind-icon">chain<wbr>To</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#complete" class="tsd-kind-icon">complete</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#failure" class="tsd-kind-icon">failure</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#future" class="tsd-kind-icon">future</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#success" class="tsd-kind-icon">success</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#trycomplete" class="tsd-kind-icon">try<wbr>Complete</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#tryfailure" class="tsd-kind-icon">try<wbr>Failure</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#trysuccess" class="tsd-kind-icon">try<wbr>Success</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="futuremaker.html#withscheduler" class="tsd-kind-icon">with<wbr>Scheduler</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a href="futuremaker.html#completed" class="tsd-kind-icon">completed</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a href="futuremaker.html#empty" class="tsd-kind-icon">empty</a>
+				</li>
+			</ul>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="globalscheduler.html" class="tsd-kind-icon">Global<wbr>Scheduler</a>
@@ -1026,20 +1038,24 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p><code>DynamicRef</code> provides a binding mechanism where the current value is
-						found through dynamic scope, but where access to the variable itself is
-					resolved through static scope.</p>
+					<p>A write interface for <a href="future.html">Future</a> to use when implementing
+					producers.</p>
 				</div>
-				<p>The current value can be retrieved with the <a href="dynamicref.html#get">DynamicRef.get</a> method.
-				New values should be pushed using the <a href="dynamicref.html#bind">DynamicRef.bind</a> method.</p>
-				<p>Values pushed via <code>bind</code> only stay valid while its second argument,
-					a parameterless function (the <code>thunk</code>), executes. When that thunk finishes
-				execution, the reference reverts to the previous value.</p>
-				<p>See <a href="dynamicref.html#bind">DynamicRef.bind</a> for a usage sample.</p>
-				<dl class="tsd-comment-tags">
-					<dt>final</dt>
-					<dd></dd>
-				</dl>
+				<p>This would be the equivalent of the now deprecated <code>Deferred</code>
+				data type in JavaScript.</p>
+				<p>Example:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Future, FutureMaker, Scheduler, Success } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
+
+<span class="hljs-keyword">const</span> ec = Scheduler.global.get()
+<span class="hljs-keyword">const</span> m = FutureMaker.empty&lt;<span class="hljs-built_in">number</span>&gt;()
+
+<span class="hljs-comment">// The producer</span>
+ec.scheduleOnce(<span class="hljs-number">1000</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> m.complete(Success(<span class="hljs-number">1</span>)))
+
+<span class="hljs-comment">// The future that will eventually complete when</span>
+<span class="hljs-comment">// `m.complete` gets called</span>
+<span class="hljs-keyword">const</span> f: Future&lt;<span class="hljs-built_in">number</span>&gt; = maker.future()
+</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -1054,7 +1070,7 @@ img { max-width: 100%; }
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DynamicRef</span>
+					<span class="target">FutureMaker</span>
 				</li>
 			</ul>
 		</section>
@@ -1063,286 +1079,205 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Properties</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="dynamicref.html#get" class="tsd-kind-icon">get</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bind" class="tsd-kind-icon">bind</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#set" class="tsd-kind-icon">set</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="dynamicref.html#of" class="tsd-kind-icon">of</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#chainto" class="tsd-kind-icon">chain<wbr>To</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#complete" class="tsd-kind-icon">complete</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#failure" class="tsd-kind-icon">failure</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#future" class="tsd-kind-icon">future</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#success" class="tsd-kind-icon">success</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#trycomplete" class="tsd-kind-icon">try<wbr>Complete</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#tryfailure" class="tsd-kind-icon">try<wbr>Failure</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#trysuccess" class="tsd-kind-icon">try<wbr>Success</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="futuremaker.html#withscheduler" class="tsd-kind-icon">with<wbr>Scheduler</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="futuremaker.html#completed" class="tsd-kind-icon">completed</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="futuremaker.html#empty" class="tsd-kind-icon">empty</a></li>
 						</ul>
 					</section>
-				</div>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="get" class="tsd-anchor"></a>
-				<h3>get</h3>
-				<div class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L39">ref.ts:39</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Returns the current value of this <code>DynamicRef</code>.</p>
-					</div>
-				</div>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="bind" class="tsd-anchor"></a>
-				<h3>bind</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">bind&lt;R&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span>, thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L140">ref.ts:140</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Binds this <code>DynamicRef</code> to a different (strict) <code>value</code> that&#39;s going to be
-									visible while executing <code>thunk</code> and then it will get reverted to
-								its previous value.</p>
-							</div>
-							<p>Sample:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"original"</span>)
-
-ref.get() <span class="hljs-comment">// original</span>
-
-ref.bind(<span class="hljs-string">"modified"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  ref.get() <span class="hljs-comment">// modified</span>
-})
-
-ref.get() <span class="hljs-comment">// original</span>
-</code></pre>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="dynamicref.html#bindl">bindL</a> for binding a non-strict value instead.</p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">A</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is the value to bind to this reference within <code>thunk</code>&#39;s execution</p>
-								</div>
-							</li>
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a parameterless function to execute</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-						<p>the result of executing <code>thunk</code></p>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="bindl" class="tsd-anchor"></a>
-				<h3>bindL</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">bindL&lt;R&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L170">ref.ts:170</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Binds this <code>DynamicRef</code> to a different (non-strict) <code>value</code> that&#39;s going
-									to be visible while executing <code>thunk</code> and then it will get reverted to
-								its previous value.</p>
-							</div>
-							<p>Sample:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"original"</span>)
-
-ref.get() <span class="hljs-comment">// original</span>
-
-ref.bindL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"modified"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  ref.get() <span class="hljs-comment">// modified</span>
-})
-
-ref.get() <span class="hljs-comment">// original</span>
-</code></pre>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="dynamicref.html#bindl">bind</a> for binding a strict value instead.</p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is the value generator to bind to this reference within <code>thunk</code>&#39;s execution</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a parameterless function to execute</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-						<p>the result of executing <code>thunk</code></p>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="revert" class="tsd-anchor"></a>
-				<h3>revert</h3>
+				<a name="chainto" class="tsd-anchor"></a>
+				<h3>chain<wbr>To</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">revert<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">chain<wbr>To<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L109">ref.ts:109</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1388">future.ts:1388</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Reverts this <code>DynamicRef</code> to a previous state, if a previous
-									state is available due to calling <a href="dynamicref.html#set">set</a> or
-								<a href="dynamicref.html#setl">setL</a>.</p>
+								<p>Chains this to <code>target</code> such that any subsequent operations on
+								this future maker is reflected on <code>target</code>.</p>
 							</div>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> main = FutureMaker.empty&lt;<span class="hljs-built_in">number</span>&gt;()
+<span class="hljs-keyword">const</span> child = FutureMaker.empty&lt;<span class="hljs-built_in">number</span>&gt;()
 
-ref.set(<span class="hljs-string">"state 2"</span>)
-ref.set(<span class="hljs-string">"state 3"</span>)
-ref.get() <span class="hljs-comment">// Yields: state 3</span>
+<span class="hljs-comment">// Now all operations on `child` will be redirected to `main`</span>
+child.chainTo(main)
 
-ref.revert()
-ref.get() <span class="hljs-comment">// Yields: state 2</span>
+<span class="hljs-comment">// Completing `child` will complete `main`</span>
+child.complete(Success(<span class="hljs-number">1</span>))
 
-ref.revert()
-ref.get() <span class="hljs-comment">// Yields: initial</span>
-
-ref.revert() <span class="hljs-comment">// No-op</span>
-ref.get() <span class="hljs-comment">// Yields: initial</span>
+main.future() <span class="hljs-comment">//=&gt; Yields 1</span>
+child.future() <span class="hljs-comment">//=&gt; Yields 1</span>
 </code></pre>
+							<p>The purpose of this method is the same as with
+								<a href="chainedcancelable.html">ChainedCancelable</a>, to be used in pieces of logic where
+								the chaining of <code>onComplete</code> calls creates a memory leaks,
+							chaining being used to get rid of such chains.</p>
+							<p>This method is being used in the implementation of
+							<a href="future.html#flatmap">Future.flatMap</a> for example to make it memory safe.</p>
+							<p>CREDITS: this was inspired by Scala&#39;s <code>scala.concurrent.Scala</code>
+							implementation.</p>
 						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>target: <a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="set" class="tsd-anchor"></a>
-				<h3>set</h3>
+				<a name="complete" class="tsd-anchor"></a>
+				<h3>complete</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">complete<span class="tsd-signature-symbol">(</span>r<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L61">ref.ts:61</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1317">future.ts:1317</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Updates the underlying of this <code>DynamicRef</code> to the given <code>value</code>.</p>
+								<p>Completes this <code>FutureMaker</code> either with a successful value or
+									with a failure, but throws an exception if this maker was
+								already completed.</p>
 							</div>
-							<p>Note that the previous state can be reverted with
-							<a href="dynamicref.html#revert">revert</a>:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
+							<p>Due to throwing exceptions, this function is recommended for
+								usage in cases where there&#39;s a guarantee that the completion
+							of the <code>FutureMaker</code> is attempted only once.</p>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> m = FutureMaker.empty&lt;<span class="hljs-built_in">number</span>&gt;()
 
-ref.set(<span class="hljs-string">"another"</span>)
-ref.get() <span class="hljs-comment">// another</span>
+m.complete(Success(<span class="hljs-number">1</span>))
 
-ref.revert()
-ref.get() <span class="hljs-comment">// initial</span>
+m.complete(Success(<span class="hljs-number">2</span>)) <span class="hljs-comment">//=&gt; throws IllegalStateError</span>
 </code></pre>
+							<p>In case you have a concurrent race, see <a href="futuremaker.html#trycomplete">tryComplete</a>
+							for a version that does not throw exceptions.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>r: <span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="failure" class="tsd-anchor"></a>
+				<h3>failure</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1355">future.ts:1355</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Alias for <code>complete(Failure(value))</code>.</p>
+							</div>
+							<p>See <a href="futuremaker.html#complete">complete</a>.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>error: <span class="tsd-signature-type">Throwable</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="future" class="tsd-anchor"></a>
+				<h3>future</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">future<span class="tsd-signature-symbol">(</span>cancelable<span class="tsd-signature-symbol">?: </span><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="future.html" class="tsd-signature-type">Future</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1410">future.ts:1410</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Creates and returns a <a href="future.html">Future</a> that will complete when this
+								future maker is completed.</p>
+							</div>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> m = FutureMaker.empty&lt;<span class="hljs-built_in">number</span>&gt;()
+
+<span class="hljs-comment">// Creates a simple future, no cancellation logic:</span>
+m.future()
+
+<span class="hljs-comment">// Creates a future with baked in cancellation logic:</span>
+<span class="hljs-keyword">const</span> cRef = Cancelable.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Cancelled!"</span>))
+m.future(cRef)
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> cancelable: <a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>is an optional reference that can indicate
+									cancellation logic to be baked into the created future</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="future.html" class="tsd-signature-type">Future</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="success" class="tsd-anchor"></a>
+				<h3>success</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1337">future.ts:1337</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Alias for <code>complete(Success(value))</code>.</p>
+							</div>
+							<p>See <a href="futuremaker.html#complete">complete</a>.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -1355,74 +1290,167 @@ ref.get() <span class="hljs-comment">// initial</span>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="setl" class="tsd-anchor"></a>
-				<h3>setL</h3>
+				<a name="trycomplete" class="tsd-anchor"></a>
+				<h3>try<wbr>Complete</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">setL<span class="tsd-signature-symbol">(</span>thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">try<wbr>Complete<span class="tsd-signature-symbol">(</span>r<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L82">ref.ts:82</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1294">future.ts:1294</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Updates the underlying of this <code>DynamicRef</code> to values generated by the
-								given <code>thunk</code>.</p>
+								<p>Tries to complete this future builder either with a successful
+								value or with a failure.</p>
 							</div>
-							<p>Note that the previous state can be reverted with
-							<a href="dynamicref.html#revert">revert</a>:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
+							<p>This function can be used in concurrent races where multiple
+							actors compete for completing the same <code>FutureMaker</code>.</p>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> m = FutureMaker.empty&lt;<span class="hljs-built_in">number</span>&gt;()
 
-ref.setL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"another"</span>)
-ref.get() <span class="hljs-comment">// another</span>
+m.tryComplete(Success(<span class="hljs-number">1</span>)) <span class="hljs-comment">//=&gt; true</span>
+m.tryComplete(Success(<span class="hljs-number">2</span>)) <span class="hljs-comment">//=&gt; false</span>
 
-ref.revert()
-ref.get() <span class="hljs-comment">// initial</span>
+m.future() <span class="hljs-comment">//=&gt; Yields 1</span>
 </code></pre>
+							<p>In case you have a guarantee that the completion only
+							happens once, then usage of <a href="futuremaker.html#complete">complete</a> is recommended.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
+								<h5>r: <span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						<p><code>false</code> in case the <code>FutureMaker</code> has been already
+						completed, or <code>true</code> otherwise</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="tryfailure" class="tsd-anchor"></a>
+				<h3>try<wbr>Failure</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">try<wbr>Failure<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Throwable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1346">future.ts:1346</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Alias for <code>tryComplete(Failure(error))</code>.</p>
+							</div>
+							<p>See <a href="futuremaker.html#trycomplete">tryComplete</a>.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>error: <span class="tsd-signature-type">Throwable</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="trysuccess" class="tsd-anchor"></a>
+				<h3>try<wbr>Success</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">try<wbr>Success<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1328">future.ts:1328</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Alias for <code>tryComplete(Success(value))</code>.</p>
+							</div>
+							<p>See <a href="futuremaker.html#trycomplete">tryComplete</a>.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>value: <span class="tsd-signature-type">A</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="withscheduler" class="tsd-anchor"></a>
+				<h3>with<wbr>Scheduler</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">with<wbr>Scheduler<span class="tsd-signature-symbol">(</span>ec<span class="tsd-signature-symbol">: </span><a href="scheduler.html" class="tsd-signature-type">Scheduler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1432">future.ts:1432</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns a new <code>FutureMaker</code> that mirrors the state of the source,
+									but that uses the given <a href="scheduler.html">Scheduler</a> reference for
+								managing the required async boundaries.</p>
+							</div>
+							<p>The given <code>Scheduler</code> reference is used for inserting async
+								boundaries when the registered listeners are triggered when
+								<a href="futuremaker.html#complete">.complete</a> is called or for data transformations
+								executed on the future references returned by
+							<a href="futuremaker.html#future">.future</a>.</p>
+							<p>See <a href="future.html#withscheduler">Future.withScheduler</a>.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>ec: <a href="scheduler.html" class="tsd-signature-type">Scheduler</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-				<a name="of" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> of</h3>
+				<a name="completed" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> completed</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<li class="tsd-signature tsd-kind-icon">of&lt;A&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dynamicref.html" class="tsd-signature-type">DynamicRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">completed&lt;A&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, ec<span class="tsd-signature-symbol">?: </span><a href="scheduler.html" class="tsd-signature-type">Scheduler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L189">ref.ts:189</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1464">future.ts:1464</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Builds a <a href="dynamicref.html">DynamicRef</a>, where the given parameterless function
-								is going to be the generator for the default value of the returned</p>
+								<p>Returns an already completed <a href="futuremaker.html">FutureMaker</a> reference.</p>
 							</div>
+							<p>Example:</p>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> m = FutureMaker.completed(Success(<span class="hljs-number">1</span>))
+
+m.future() <span class="hljs-comment">// Yields 1</span>
+
+m.complete(Success(<span class="hljs-number">2</span>)) <span class="hljs-comment">// Throws IllegalStateError</span>
+</code></pre>
+							<p>If all you need is a <code>Future</code>, then use <a href="future.html#fromtry">Future.fromTry</a>
+							instead.</p>
 						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
@@ -1433,22 +1461,50 @@ ref.get() <span class="hljs-comment">// initial</span>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>fn: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
+								<h5>value: <span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> ec: <a href="scheduler.html" class="tsd-signature-type">Scheduler</a><span class="tsd-signature-symbol"> =&nbsp;Scheduler.global.get()</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="dynamicref.html" class="tsd-signature-type">DynamicRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<a name="empty" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> empty</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">empty&lt;A&gt;<span class="tsd-signature-symbol">(</span>ec<span class="tsd-signature-symbol">?: </span><a href="scheduler.html" class="tsd-signature-type">Scheduler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1444">future.ts:1444</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns an empty <code>FutureMaker</code> reference awaiting completion.</p>
+							</div>
+							<p>This is the builder that one should use for building
+								<code>FutureMaker</code> instances, since the default constructor is not
+							exposed due to it exposing internal state.</p>
+						</div>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>A</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> ec: <a href="scheduler.html" class="tsd-signature-type">Scheduler</a><span class="tsd-signature-symbol"> =&nbsp;Scheduler.global.get()</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="futuremaker.html" class="tsd-signature-type">FutureMaker</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DynamicRef | funfix-exec</title>
+	<title>ChainedCancelable | funfix-exec</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -918,8 +918,31 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class">
 			<a href="cancelable.html" class="tsd-kind-icon">Cancelable</a>
 		</li>
-		<li class=" tsd-kind-class">
+		<li class="current tsd-kind-class">
 			<a href="chainedcancelable.html" class="tsd-kind-icon">Chained<wbr>Cancelable</a>
+			<ul>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+					<a href="chainedcancelable.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="chainedcancelable.html#cancel" class="tsd-kind-icon">cancel</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="chainedcancelable.html#chainto" class="tsd-kind-icon">chain<wbr>To</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="chainedcancelable.html#clear" class="tsd-kind-icon">clear</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="chainedcancelable.html#iscanceled" class="tsd-kind-icon">is<wbr>Canceled</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="chainedcancelable.html#update" class="tsd-kind-icon">update</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="chainedcancelable.html#empty" class="tsd-kind-icon">empty</a>
+				</li>
+			</ul>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="dummycancelable.html" class="tsd-kind-icon">Dummy<wbr>Cancelable</a>
@@ -927,31 +950,8 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class">
 			<a href="duration.html" class="tsd-kind-icon">Duration</a>
 		</li>
-		<li class="current tsd-kind-class tsd-has-type-parameter">
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="dynamicref.html" class="tsd-kind-icon">Dynamic<wbr>Ref</a>
-			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="dynamicref.html#get" class="tsd-kind-icon">get</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="dynamicref.html#bind" class="tsd-kind-icon">bind</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#set" class="tsd-kind-icon">set</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<a href="dynamicref.html#of" class="tsd-kind-icon">of</a>
-				</li>
-			</ul>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a>
@@ -1026,36 +1026,70 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p><code>DynamicRef</code> provides a binding mechanism where the current value is
-						found through dynamic scope, but where access to the variable itself is
-					resolved through static scope.</p>
+					<p>Represents an <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a> whose underlying
+						cancelable reference can be swapped for another. It can
+						be &quot;chained&quot; to another <code>ChainedCancelable</code>, forwarding all
+					operations to it.</p>
 				</div>
-				<p>The current value can be retrieved with the <a href="dynamicref.html#get">DynamicRef.get</a> method.
-				New values should be pushed using the <a href="dynamicref.html#bind">DynamicRef.bind</a> method.</p>
-				<p>Values pushed via <code>bind</code> only stay valid while its second argument,
-					a parameterless function (the <code>thunk</code>), executes. When that thunk finishes
-				execution, the reference reverts to the previous value.</p>
-				<p>See <a href="dynamicref.html#bind">DynamicRef.bind</a> for a usage sample.</p>
-				<dl class="tsd-comment-tags">
-					<dt>final</dt>
-					<dd></dd>
-				</dl>
+				<p>For most purposes it works like a <a href="multiassigncancelable.html">MultiAssignCancelable</a>:</p>
+				<pre><code class="lang-typescript">  <span class="hljs-keyword">const</span> s = ChainedCancelable.empty()
+  s.update(c1) <span class="hljs-comment">// sets the underlying cancelable to c1</span>
+  s.update(c2) <span class="hljs-comment">// swaps the underlying cancelable to c2</span>
+
+  s.cancel() <span class="hljs-comment">// also cancels c2</span>
+  s.update(c3) <span class="hljs-comment">// also cancels c3, because s is already canceled</span>
+</code></pre>
+				<p>However it can also be linked to another <code>ChainedCancelable</code>
+				reference, forwarding all requests to it:</p>
+				<pre><code class="lang-typescript">  <span class="hljs-keyword">const</span> source = ChainedCancelable.empty()
+  <span class="hljs-keyword">const</span> child1 = ChainedCancelable.empty()
+  <span class="hljs-keyword">const</span> child2 = ChainedCancelable.empty()
+
+  <span class="hljs-comment">// Hence forth forwards all operations on `child1` to `source`</span>
+  child1.chainTo(source)
+
+  <span class="hljs-comment">// Also forwarding all `child2` operations to `source`.</span>
+  <span class="hljs-comment">// This happens because `child1` was linked to `source` first</span>
+  <span class="hljs-comment">// but order matters, as `child2` will be linked directly</span>
+  <span class="hljs-comment">// to `source` and not to `child1`, in order for `child1` to</span>
+  <span class="hljs-comment">// be garbage collected if it goes out of scope ;-)</span>
+  child2.chainTo(child1)
+
+  <span class="hljs-comment">// Source will be updated with a new Cancelable ref</span>
+  child1.update(Cancelable.from(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> println(<span class="hljs-string">"Cancelling (1)"</span>)))
+
+  <span class="hljs-comment">// Source will be updated with another Cancelable ref</span>
+  child2.update(Cancelable.from(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> println(<span class="hljs-string">"Cancelling (2)"</span>)))
+
+  source.cancel()
+  <span class="hljs-comment">//=&gt; Cancelling (2)</span>
+</code></pre>
+				<p>This implementation is a special purpose <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a>,
+					much like <a href="stackedcancelable.html">StackedCancelable</a>, to be used in <code>flatMap</code>
+				implementations that need it.</p>
+				<p>The problem that it solves in Funfix&#39;s codebase is that various
+					<code>flatMap</code> implementations need to be memory safe.
+					By &quot;chaining&quot; cancelable references, we allow the garbage collector
+					to get rid of references created in a <code>flatMap</code> loop, the goal
+					being to consume a constant amount of memory. Thus this
+				implementation is used for the <a href="future.html">Future</a> implementation.</p>
+				<p>If unsure about what to use, then you probably don&#39;t need
+					<a href="chainedcancelable.html">ChainedCancelable</a>. Use <a href="multiassigncancelable.html">MultiAssignCancelable</a> or
+				<a href="singleassigncancelable.html">SingleAssignCancelable</a> for most purposes.</p>
 			</div>
-		</section>
-		<section class="tsd-panel tsd-type-parameters">
-			<h3>Type parameters</h3>
-			<ul class="tsd-type-parameters">
-				<li>
-					<h4>A</h4>
-				</li>
-			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DynamicRef</span>
+					<span class="target">ChainedCancelable</span>
 				</li>
+			</ul>
+		</section>
+		<section class="tsd-panel">
+			<h3>Implements</h3>
+			<ul class="tsd-hierarchy">
+				<li><a href="../interfaces/iassigncancelable.html" class="tsd-signature-type">IAssignCancelable</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -1063,392 +1097,206 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Properties</h3>
+						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="dynamicref.html#get" class="tsd-kind-icon">get</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="chainedcancelable.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bind" class="tsd-kind-icon">bind</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#set" class="tsd-kind-icon">set</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="dynamicref.html#of" class="tsd-kind-icon">of</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="chainedcancelable.html#cancel" class="tsd-kind-icon">cancel</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="chainedcancelable.html#chainto" class="tsd-kind-icon">chain<wbr>To</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="chainedcancelable.html#clear" class="tsd-kind-icon">clear</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="chainedcancelable.html#iscanceled" class="tsd-kind-icon">is<wbr>Canceled</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="chainedcancelable.html#update" class="tsd-kind-icon">update</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="chainedcancelable.html#empty" class="tsd-kind-icon">empty</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="get" class="tsd-anchor"></a>
-				<h3>get</h3>
-				<div class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L39">ref.ts:39</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Returns the current value of this <code>DynamicRef</code>.</p>
-					</div>
-				</div>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Chained<wbr>Cancelable<span class="tsd-signature-symbol">(</span>initial<span class="tsd-signature-symbol">?: </span><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="chainedcancelable.html" class="tsd-signature-type">ChainedCancelable</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L968">cancelable.ts:968</a></li>
 							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> initial: <a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="chainedcancelable.html" class="tsd-signature-type">ChainedCancelable</a></h4>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="bind" class="tsd-anchor"></a>
-				<h3>bind</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">bind&lt;R&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span>, thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="cancel" class="tsd-anchor"></a>
+				<h3>cancel</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">cancel<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a>.<a href="../interfaces/iassigncancelable.html#cancel">cancel</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L140">ref.ts:140</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L993">cancelable.ts:993</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Binds this <code>DynamicRef</code> to a different (strict) <code>value</code> that&#39;s going to be
-									visible while executing <code>thunk</code> and then it will get reverted to
-								its previous value.</p>
-							</div>
-							<p>Sample:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"original"</span>)
-
-ref.get() <span class="hljs-comment">// original</span>
-
-ref.bind(<span class="hljs-string">"modified"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  ref.get() <span class="hljs-comment">// modified</span>
-})
-
-ref.get() <span class="hljs-comment">// original</span>
-</code></pre>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="dynamicref.html#bindl">bindL</a> for binding a non-strict value instead.</p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">A</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is the value to bind to this reference within <code>thunk</code>&#39;s execution</p>
-								</div>
-							</li>
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a parameterless function to execute</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-						<p>the result of executing <code>thunk</code></p>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="bindl" class="tsd-anchor"></a>
-				<h3>bindL</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">bindL&lt;R&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L170">ref.ts:170</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Binds this <code>DynamicRef</code> to a different (non-strict) <code>value</code> that&#39;s going
-									to be visible while executing <code>thunk</code> and then it will get reverted to
-								its previous value.</p>
-							</div>
-							<p>Sample:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"original"</span>)
-
-ref.get() <span class="hljs-comment">// original</span>
-
-ref.bindL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"modified"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  ref.get() <span class="hljs-comment">// modified</span>
-})
-
-ref.get() <span class="hljs-comment">// original</span>
-</code></pre>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="dynamicref.html#bindl">bind</a> for binding a strict value instead.</p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is the value generator to bind to this reference within <code>thunk</code>&#39;s execution</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a parameterless function to execute</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-						<p>the result of executing <code>thunk</code></p>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="revert" class="tsd-anchor"></a>
-				<h3>revert</h3>
+				<a name="chainto" class="tsd-anchor"></a>
+				<h3>chain<wbr>To</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">revert<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">chain<wbr>To<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="chainedcancelable.html" class="tsd-signature-type">ChainedCancelable</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L109">ref.ts:109</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L1046">cancelable.ts:1046</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Reverts this <code>DynamicRef</code> to a previous state, if a previous
-									state is available due to calling <a href="dynamicref.html#set">set</a> or
-								<a href="dynamicref.html#setl">setL</a>.</p>
+								<p>Chains this <code>ChainedCancelable</code> to another reference,
+								such that all operations are forwarded to <code>other</code>.</p>
 							</div>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
+							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> source = ChainedCancelable.empty()
+<span class="hljs-keyword">const</span> child1 = ChainedCancelable.empty()
+<span class="hljs-keyword">const</span> child2 = ChainedCancelable.empty()
 
-ref.set(<span class="hljs-string">"state 2"</span>)
-ref.set(<span class="hljs-string">"state 3"</span>)
-ref.get() <span class="hljs-comment">// Yields: state 3</span>
+<span class="hljs-comment">// Hence forth forwards all operations on `child1` to `source`</span>
+child1.chainTo(source)
 
-ref.revert()
-ref.get() <span class="hljs-comment">// Yields: state 2</span>
+<span class="hljs-comment">// Also forwarding all `child2` operations to `source`</span>
+<span class="hljs-comment">// (this happens because `child1` was linked to `source` first</span>
+<span class="hljs-comment">// but order matters ;-))</span>
+child2.chainTo(child1)
 
-ref.revert()
-ref.get() <span class="hljs-comment">// Yields: initial</span>
+<span class="hljs-comment">// Source will be updated with a new Cancelable ref</span>
+child1.update( Cancelable.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Cancelling (1)"</span>)) )
 
-ref.revert() <span class="hljs-comment">// No-op</span>
-ref.get() <span class="hljs-comment">// Yields: initial</span>
+<span class="hljs-comment">// Source will be updated with another Cancelable ref</span>
+child2.update( Cancelable.of (<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Cancelling (2)"</span>)) )
+
+source.cancel()
+<span class="hljs-comment">//=&gt; Cancelling (2)</span>
 </code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>other: <a href="chainedcancelable.html" class="tsd-signature-type">ChainedCancelable</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="clear" class="tsd-anchor"></a>
+				<h3>clear</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L1007">cancelable.ts:1007</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Clears the underlying reference, resetting it to a dummy
+								reference.</p>
+							</div>
+							<p>To be used for garbage collecting purposes.</p>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="set" class="tsd-anchor"></a>
-				<h3>set</h3>
+				<a name="iscanceled" class="tsd-anchor"></a>
+				<h3>is<wbr>Canceled</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Canceled<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a>.<a href="../interfaces/iassigncancelable.html#iscanceled">isCanceled</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L61">ref.ts:61</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L1014">cancelable.ts:1014</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Updates the underlying of this <code>DynamicRef</code> to the given <code>value</code>.</p>
-							</div>
-							<p>Note that the previous state can be reverted with
-							<a href="dynamicref.html#revert">revert</a>:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
-
-ref.set(<span class="hljs-string">"another"</span>)
-ref.get() <span class="hljs-comment">// another</span>
-
-ref.revert()
-ref.get() <span class="hljs-comment">// initial</span>
-</code></pre>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">A</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="setl" class="tsd-anchor"></a>
-				<h3>setL</h3>
+				<a name="update" class="tsd-anchor"></a>
+				<h3>update</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">setL<span class="tsd-signature-symbol">(</span>thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/iassigncancelable.html">IAssignCancelable</a>.<a href="../interfaces/iassigncancelable.html#update">update</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L82">ref.ts:82</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L976">cancelable.ts:976</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Updates the underlying of this <code>DynamicRef</code> to values generated by the
-								given <code>thunk</code>.</p>
-							</div>
-							<p>Note that the previous state can be reverted with
-							<a href="dynamicref.html#revert">revert</a>:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
-
-ref.setL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"another"</span>)
-ref.get() <span class="hljs-comment">// another</span>
-
-ref.revert()
-ref.get() <span class="hljs-comment">// initial</span>
-</code></pre>
-						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
+								<h5>value: <a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-				<a name="of" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> of</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<li class="tsd-signature tsd-kind-icon">of&lt;A&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dynamicref.html" class="tsd-signature-type">DynamicRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="empty" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> empty</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">empty<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="chainedcancelable.html" class="tsd-signature-type">ChainedCancelable</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L189">ref.ts:189</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L1092">cancelable.ts:1092</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Builds a <a href="dynamicref.html">DynamicRef</a>, where the given parameterless function
-								is going to be the generator for the default value of the returned</p>
+								<p>Returns a new, empty <a href="chainedcancelable.html">ChainedCancelable</a>.</p>
 							</div>
 						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>fn: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="dynamicref.html" class="tsd-signature-type">DynamicRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <a href="chainedcancelable.html" class="tsd-signature-type">ChainedCancelable</a></h4>
 					</li>
 				</ul>
 			</section>

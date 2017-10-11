@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DynamicRef | funfix-exec</title>
+	<title>DummyCancelable | funfix-exec</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -921,37 +921,22 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class">
 			<a href="chainedcancelable.html" class="tsd-kind-icon">Chained<wbr>Cancelable</a>
 		</li>
-		<li class=" tsd-kind-class">
+		<li class="current tsd-kind-class">
 			<a href="dummycancelable.html" class="tsd-kind-icon">Dummy<wbr>Cancelable</a>
+			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="dummycancelable.html#_funisdummy" class="tsd-kind-icon">_fun<wbr>IsDummy</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="dummycancelable.html#cancel" class="tsd-kind-icon">cancel</a>
+				</li>
+			</ul>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="duration.html" class="tsd-kind-icon">Duration</a>
 		</li>
-		<li class="current tsd-kind-class tsd-has-type-parameter">
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="dynamicref.html" class="tsd-kind-icon">Dynamic<wbr>Ref</a>
-			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="dynamicref.html#get" class="tsd-kind-icon">get</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="dynamicref.html#bind" class="tsd-kind-icon">bind</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#set" class="tsd-kind-icon">set</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<a href="dynamicref.html#of" class="tsd-kind-icon">of</a>
-				</li>
-			</ul>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="executionmodel.html" class="tsd-kind-icon">Execution<wbr>Model</a>
@@ -1026,429 +1011,76 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p><code>DynamicRef</code> provides a binding mechanism where the current value is
-						found through dynamic scope, but where access to the variable itself is
-					resolved through static scope.</p>
+					<p>A <code>DummyCancelable</code> is for <a href="../interfaces/icancelable.html">ICancelable</a> references that
+					don&#39;t do anything on <code>cancel()</code> and thus can be ignored.</p>
 				</div>
-				<p>The current value can be retrieved with the <a href="dynamicref.html#get">DynamicRef.get</a> method.
-				New values should be pushed using the <a href="dynamicref.html#bind">DynamicRef.bind</a> method.</p>
-				<p>Values pushed via <code>bind</code> only stay valid while its second argument,
-					a parameterless function (the <code>thunk</code>), executes. When that thunk finishes
-				execution, the reference reverts to the previous value.</p>
-				<p>See <a href="dynamicref.html#bind">DynamicRef.bind</a> for a usage sample.</p>
-				<dl class="tsd-comment-tags">
-					<dt>final</dt>
-					<dd></dd>
-				</dl>
+				<p>The common supertype of <a href="cancelable.html#empty">Cancelable.empty</a> and
+				<a href="boolcancelable.html#alreadycanceled">BoolCancelable.alreadyCanceled</a>.</p>
 			</div>
-		</section>
-		<section class="tsd-panel tsd-type-parameters">
-			<h3>Type parameters</h3>
-			<ul class="tsd-type-parameters">
-				<li>
-					<h4>A</h4>
-				</li>
-			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DynamicRef</span>
+					<span class="target">DummyCancelable</span>
 				</li>
+			</ul>
+		</section>
+		<section class="tsd-panel">
+			<h3>Implements</h3>
+			<ul class="tsd-hierarchy">
+				<li><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="dynamicref.html#get" class="tsd-kind-icon">get</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dummycancelable.html#_funisdummy" class="tsd-kind-icon">_fun<wbr>IsDummy</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bind" class="tsd-kind-icon">bind</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="dynamicref.html#bindl" class="tsd-kind-icon">bindL</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#revert" class="tsd-kind-icon">revert</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#set" class="tsd-kind-icon">set</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dynamicref.html#setl" class="tsd-kind-icon">setL</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="dynamicref.html#of" class="tsd-kind-icon">of</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="dummycancelable.html#cancel" class="tsd-kind-icon">cancel</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="get" class="tsd-anchor"></a>
-				<h3>get</h3>
-				<div class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_funisdummy" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _fun<wbr>IsDummy</h3>
+				<div class="tsd-signature tsd-kind-icon">_fun<wbr>IsDummy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L39">ref.ts:39</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L196">cancelable.ts:196</a></li>
 					</ul>
 				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Returns the current value of this <code>DynamicRef</code>.</p>
-					</div>
-				</div>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="bind" class="tsd-anchor"></a>
-				<h3>bind</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">bind&lt;R&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span>, thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L140">ref.ts:140</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Binds this <code>DynamicRef</code> to a different (strict) <code>value</code> that&#39;s going to be
-									visible while executing <code>thunk</code> and then it will get reverted to
-								its previous value.</p>
-							</div>
-							<p>Sample:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"original"</span>)
-
-ref.get() <span class="hljs-comment">// original</span>
-
-ref.bind(<span class="hljs-string">"modified"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  ref.get() <span class="hljs-comment">// modified</span>
-})
-
-ref.get() <span class="hljs-comment">// original</span>
-</code></pre>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="dynamicref.html#bindl">bindL</a> for binding a non-strict value instead.</p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">A</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is the value to bind to this reference within <code>thunk</code>&#39;s execution</p>
-								</div>
-							</li>
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a parameterless function to execute</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-						<p>the result of executing <code>thunk</code></p>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-				<a name="bindl" class="tsd-anchor"></a>
-				<h3>bindL</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">bindL&lt;R&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L170">ref.ts:170</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Binds this <code>DynamicRef</code> to a different (non-strict) <code>value</code> that&#39;s going
-									to be visible while executing <code>thunk</code> and then it will get reverted to
-								its previous value.</p>
-							</div>
-							<p>Sample:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"original"</span>)
-
-ref.get() <span class="hljs-comment">// original</span>
-
-ref.bindL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"modified"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  ref.get() <span class="hljs-comment">// modified</span>
-})
-
-ref.get() <span class="hljs-comment">// original</span>
-</code></pre>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="dynamicref.html#bindl">bind</a> for binding a strict value instead.</p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is the value generator to bind to this reference within <code>thunk</code>&#39;s execution</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>is a parameterless function to execute</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
-						<p>the result of executing <code>thunk</code></p>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="revert" class="tsd-anchor"></a>
-				<h3>revert</h3>
+				<a name="cancel" class="tsd-anchor"></a>
+				<h3>cancel</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">revert<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">cancel<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/icancelable.html">ICancelable</a>.<a href="../interfaces/icancelable.html#cancel">cancel</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L109">ref.ts:109</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/cancelable.ts#L198">cancelable.ts:198</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Reverts this <code>DynamicRef</code> to a previous state, if a previous
-									state is available due to calling <a href="dynamicref.html#set">set</a> or
-								<a href="dynamicref.html#setl">setL</a>.</p>
-							</div>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
-
-ref.set(<span class="hljs-string">"state 2"</span>)
-ref.set(<span class="hljs-string">"state 3"</span>)
-ref.get() <span class="hljs-comment">// Yields: state 3</span>
-
-ref.revert()
-ref.get() <span class="hljs-comment">// Yields: state 2</span>
-
-ref.revert()
-ref.get() <span class="hljs-comment">// Yields: initial</span>
-
-ref.revert() <span class="hljs-comment">// No-op</span>
-ref.get() <span class="hljs-comment">// Yields: initial</span>
-</code></pre>
-						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="set" class="tsd-anchor"></a>
-				<h3>set</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L61">ref.ts:61</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Updates the underlying of this <code>DynamicRef</code> to the given <code>value</code>.</p>
-							</div>
-							<p>Note that the previous state can be reverted with
-							<a href="dynamicref.html#revert">revert</a>:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
-
-ref.set(<span class="hljs-string">"another"</span>)
-ref.get() <span class="hljs-comment">// another</span>
-
-ref.revert()
-ref.get() <span class="hljs-comment">// initial</span>
-</code></pre>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">A</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="setl" class="tsd-anchor"></a>
-				<h3>setL</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">setL<span class="tsd-signature-symbol">(</span>thunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L82">ref.ts:82</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Updates the underlying of this <code>DynamicRef</code> to values generated by the
-								given <code>thunk</code>.</p>
-							</div>
-							<p>Note that the previous state can be reverted with
-							<a href="dynamicref.html#revert">revert</a>:</p>
-							<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> ref = DynamicRef.of(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"initial"</span>)
-
-ref.setL(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"another"</span>)
-ref.get() <span class="hljs-comment">// another</span>
-
-ref.revert()
-ref.get() <span class="hljs-comment">// initial</span>
-</code></pre>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>thunk: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-				<a name="of" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> of</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<li class="tsd-signature tsd-kind-icon">of&lt;A&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dynamicref.html" class="tsd-signature-type">DynamicRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/ref.ts#L189">ref.ts:189</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Builds a <a href="dynamicref.html">DynamicRef</a>, where the given parameterless function
-								is going to be the generator for the default value of the returned</p>
-							</div>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>A</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>fn: <span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="dynamicref.html" class="tsd-signature-type">DynamicRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>

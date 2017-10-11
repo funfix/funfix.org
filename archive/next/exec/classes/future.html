@@ -919,6 +919,12 @@ img { max-width: 100%; }
 			<a href="cancelable.html" class="tsd-kind-icon">Cancelable</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="chainedcancelable.html" class="tsd-kind-icon">Chained<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="dummycancelable.html" class="tsd-kind-icon">Dummy<wbr>Cancelable</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="duration.html" class="tsd-kind-icon">Duration</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -930,6 +936,9 @@ img { max-width: 100%; }
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="future.html" class="tsd-kind-icon">Future</a>
 			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="future.html#_cancelable" class="tsd-kind-icon">_cancelable</a>
+				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="future.html#_scheduler" class="tsd-kind-icon">_scheduler</a>
 				</li>
@@ -994,6 +1003,9 @@ img { max-width: 100%; }
 					<a href="future.html#frompromise" class="tsd-kind-icon">from<wbr>Promise</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a href="future.html#fromtry" class="tsd-kind-icon">from<wbr>Try</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a href="future.html#map2" class="tsd-kind-icon">map2</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
@@ -1030,6 +1042,9 @@ img { max-width: 100%; }
 					<a href="future.html#unit" class="tsd-kind-icon">unit</a>
 				</li>
 			</ul>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="futuremaker.html" class="tsd-kind-icon">Future<wbr>Maker</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="globalscheduler.html" class="tsd-kind-icon">Global<wbr>Scheduler</a>
@@ -1184,6 +1199,7 @@ Scheduler.global.bind(ec, <span class="hljs-function"><span class="hljs-params">
 					<section class="tsd-index-section tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="future.html#_cancelable" class="tsd-kind-icon">_cancelable</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="future.html#_scheduler" class="tsd-kind-icon">_scheduler</a></li>
 						</ul>
 					</section>
@@ -1210,6 +1226,7 @@ Scheduler.global.bind(ec, <span class="hljs-function"><span class="hljs-params">
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="future.html#delayedtick" class="tsd-kind-icon">delayed<wbr>Tick</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="future.html#firstcompletedof" class="tsd-kind-icon">first<wbr>Completed<wbr>Of</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="future.html#frompromise" class="tsd-kind-icon">from<wbr>Promise</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="future.html#fromtry" class="tsd-kind-icon">from<wbr>Try</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="future.html#map2" class="tsd-kind-icon">map2</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="future.html#map3" class="tsd-kind-icon">map3</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="future.html#map4" class="tsd-kind-icon">map4</a></li>
@@ -1230,12 +1247,30 @@ Scheduler.global.bind(ec, <span class="hljs-function"><span class="hljs-params">
 		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_cancelable" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _cancelable</h3>
+				<div class="tsd-signature tsd-kind-icon">_cancelable<span class="tsd-signature-symbol">:</span> <a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L140">future.ts:140</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Reference to the current <a href="../interfaces/icancelable.html">ICancelable</a> available for
+						subsequent data transformations.</p>
+					</div>
+					<p>Protected, because it shouldn&#39;t be public API, being meant for
+					<code>Future</code> implementations.</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 				<a name="_scheduler" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _scheduler</h3>
 				<div class="tsd-signature tsd-kind-icon">_scheduler<span class="tsd-signature-symbol">:</span> <a href="scheduler.html" class="tsd-signature-type">Scheduler</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L129">future.ts:129</a></li>
+						<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L129">future.ts:129</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1261,7 +1296,7 @@ Scheduler.global.bind(ec, <span class="hljs-function"><span class="hljs-params">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L303">future.ts:303</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L314">future.ts:314</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1296,7 +1331,7 @@ Scheduler.global.bind(ec, <span class="hljs-function"><span class="hljs-params">
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/icancelable.html">ICancelable</a>.<a href="../interfaces/icancelable.html#cancel">cancel</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L182">future.ts:182</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L193">future.ts:193</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1323,7 +1358,7 @@ Scheduler.global.bind(ec, <span class="hljs-function"><span class="hljs-params">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L438">future.ts:438</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L449">future.ts:449</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1363,7 +1398,7 @@ fa.delayResult(<span class="hljs-number">1000</span>).flatMap
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L325">future.ts:325</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L336">future.ts:336</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1426,7 +1461,7 @@ fa.flatMap(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;<
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L343">future.ts:343</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L354">future.ts:354</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1485,7 +1520,7 @@ fa.flatMap(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;<
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L169">future.ts:169</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L180">future.ts:180</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1542,7 +1577,7 @@ fa.flatMap(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;<
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L385">future.ts:385</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L396">future.ts:396</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1601,7 +1636,7 @@ fa.flatMap(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;<
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L368">future.ts:368</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L379">future.ts:379</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1666,7 +1701,7 @@ fa.flatMap(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;<
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L391">future.ts:391</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L402">future.ts:402</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1701,7 +1736,7 @@ fa.flatMap(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;<
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L459">future.ts:459</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L470">future.ts:470</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1739,7 +1774,7 @@ fa.timeout(<span class="hljs-number">1000</span>)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L482">future.ts:482</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L493">future.ts:493</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1802,7 +1837,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, <span class="hljs-function">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L412">future.ts:412</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L423">future.ts:423</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1829,7 +1864,7 @@ fa.timeoutTo(<span class="hljs-number">1000</span>, <span class="hljs-function">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L279">future.ts:279</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L290">future.ts:290</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1921,7 +1956,7 @@ future.transform&lt;Either&lt;Throwable, A&gt;&gt;(Left, Right)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L252">future.ts:252</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L263">future.ts:263</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2026,7 +2061,7 @@ future.transform&lt;Either&lt;Throwable, A&gt;&gt;(Left, Right)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L150">future.ts:150</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L161">future.ts:161</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2062,7 +2097,7 @@ f2.value()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L212">future.ts:212</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L223">future.ts:223</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2112,7 +2147,7 @@ f2.value()
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L620">future.ts:620</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L630">future.ts:630</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2232,7 +2267,7 @@ Future.create&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L667">future.ts:667</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L683">future.ts:683</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2280,7 +2315,7 @@ Future.create&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L756">future.ts:756</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L796">future.ts:796</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2336,7 +2371,7 @@ Future.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L724">future.ts:724</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L740">future.ts:740</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2377,6 +2412,60 @@ Future.firstCompletedOf([fa2, failure])
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<a name="fromtry" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Try</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">from<wbr>Try&lt;A&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, ec<span class="tsd-signature-symbol">?: </span><a href="scheduler.html" class="tsd-signature-type">Scheduler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="future.html" class="tsd-signature-type">Future</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L770">future.ts:770</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Builds an already complete <code>Future</code> from a <code>Try</code> value.</p>
+							</div>
+							<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Success, Failure, Future } <span class="hljs-keyword">from</span> <span class="hljs-string">"funfix"</span>
+
+<span class="hljs-comment">// Already completed with 1</span>
+<span class="hljs-keyword">const</span> f1 = Future.fromTry(Success(<span class="hljs-number">1</span>))
+
+<span class="hljs-comment">// Already completed in error</span>
+<span class="hljs-keyword">const</span> f2 = Future.fromTry(Failure(<span class="hljs-string">"err"</span>))
+</code></pre>
+						</div>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>A</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>value: <span class="tsd-signature-type">Try</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>is the <code>Try</code> value to stream in <code>onComplete</code> listeners</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> ec: <a href="scheduler.html" class="tsd-signature-type">Scheduler</a><span class="tsd-signature-symbol"> =&nbsp;Scheduler.global.get()</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>is an optional <a href="scheduler.html">Scheduler</a> reference that will get used
+										for scheduling the actual async execution; if one isn&#39;t provided
+										then <a href="scheduler.html#global">Scheduler.global</a> gets used, which also allows for
+									local overrides, being a <a href="dynamicref.html">DynamicRef</a></p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="future.html" class="tsd-signature-type">Future</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 				<a name="map2" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagStatic">Static</span> map2</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
@@ -2386,7 +2475,7 @@ Future.firstCompletedOf([fa2, failure])
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L871">future.ts:871</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L911">future.ts:911</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2474,7 +2563,7 @@ Future.map2(fa1, Future.raise(<span class="hljs-string">"error"</span>),
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L906">future.ts:906</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L946">future.ts:946</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2573,7 +2662,7 @@ Future.map3(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L942">future.ts:942</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L982">future.ts:982</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2681,7 +2770,7 @@ Future.map4(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L981">future.ts:981</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1021">future.ts:1021</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2801,7 +2890,7 @@ Future.map5(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L1022">future.ts:1022</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L1062">future.ts:1062</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2932,7 +3021,7 @@ Future.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L510">future.ts:510</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L521">future.ts:521</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2994,7 +3083,7 @@ Future.map6(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L538">future.ts:538</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L548">future.ts:548</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3048,7 +3137,7 @@ f.onComplete(<span class="hljs-function"><span class="hljs-params">r</span> =&gt
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L563">future.ts:563</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L573">future.ts:573</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3096,7 +3185,7 @@ f.onComplete(<span class="hljs-function"><span class="hljs-params">r</span> =&gt
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L842">future.ts:842</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L882">future.ts:882</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3153,7 +3242,7 @@ f.onComplete(<span class="hljs-function"><span class="hljs-params">r</span> =&gt
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L700">future.ts:700</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L716">future.ts:716</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3241,7 +3330,7 @@ Future.tailRecM(<span class="hljs-number">0</span>, <span class="hljs-function">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L808">future.ts:808</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L848">future.ts:848</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3362,7 +3451,7 @@ Future.traverse(userIDs, <span class="hljs-number">2</span>)(fetchUserDetails)
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/funfix/funfix/blob/940d25f/packages/funfix-exec/src/future.ts#L639">future.ts:639</a></li>
+								<li>Defined in <a href="https://github.com/funfix/funfix/blob/d469def/packages/funfix-exec/src/future.ts#L655">future.ts:655</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
